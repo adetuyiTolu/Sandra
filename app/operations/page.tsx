@@ -1,10 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { SandraHeader } from "@/components/layout/SandraHeader"
 import { QueuePanel, type QueueId } from "@/components/operations/QueuePanel"
 import { ItemCard } from "@/components/operations/ItemCard"
 import { AISummaryBadge } from "@/components/operations/AISummaryBadge"
+import { useDemoMode } from "@/lib/demo-context"
 import { kycRequests, cases, fraudAlerts } from "@/lib/tools/executors"
 import type { KYCRequest, Case, FraudAlert } from "@/lib/types"
 import { cn } from "@/lib/utils"
@@ -80,6 +81,21 @@ export default function OperationsPage() {
   const [selectedQueue, setSelectedQueue] = useState<QueueId>("kyc")
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [askInput, setAskInput] = useState("")
+
+  const { isActive, currentStepData } = useDemoMode()
+
+  useEffect(() => {
+    if (!isActive || !currentStepData) return
+    
+    if (currentStepData.autoSelectQueue) {
+      if (currentStepData.autoSelectQueue === "KYC Queue") setSelectedQueue("kyc")
+      if (currentStepData.autoSelectQueue === "AML Queue") setSelectedQueue("aml")
+    }
+    
+    if (currentStepData.autoSelectItem !== undefined) {
+      setSelectedIndex(currentStepData.autoSelectItem)
+    }
+  }, [isActive, currentStepData])
 
   const items = getQueueItems(selectedQueue)
   const selectedItem = items[selectedIndex] ?? null
@@ -166,7 +182,12 @@ export default function OperationsPage() {
           ) : (
             <div className="p-8 max-w-3xl">
               {/* Sandra's Assessment */}
-              <div className="glass-card rounded-xl border border-white/5 p-6 mb-8 shadow-premium hover:shadow-premium-hover transition-all duration-300">
+              <div className={cn(
+                "glass-card rounded-xl border border-white/5 p-6 mb-8 shadow-premium hover:shadow-premium-hover transition-all duration-300",
+                isActive && currentStepData?.highlightElement === "ai-summary-column" 
+                  ? "ring-2 ring-[#37b7ab] ring-offset-2 ring-offset-[#0A0A0A] shadow-[0_0_20px_rgba(55,183,171,0.2)] animate-pulse"
+                  : ""
+              )}>
                 <div className="flex items-center gap-2 mb-3">
                   <Cpu size={14} className="text-[#37b7ab]" />
                   <span className="font-semibold text-[#EAEAEA] text-sm tracking-tight">Sandra&apos;s Assessment</span>

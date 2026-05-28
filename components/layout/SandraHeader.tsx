@@ -45,8 +45,8 @@ export function SandraHeader({ title, subtitle }: SandraHeaderProps) {
         className={cn(
           "flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all-150 border",
           isActive
-            ? "bg-amber-500/10 text-amber-500 border-amber-500/20 hover:bg-amber-500/20"
-            : "bg-[#37b7ab]/10 text-[#37b7ab] border-[#37b7ab]/20 hover:bg-[#37b7ab]/20"
+            ? "bg-[#37b7ab]/10 text-[#37b7ab] border-[#37b7ab]/30 shadow-[0_0_10px_rgba(55,183,171,0.15)] hover:bg-[#37b7ab]/20"
+            : "bg-transparent text-[#EAEAEA] border-white/10 hover:border-white/20 hover:bg-white/5"
         )}
       >
         {isActive ? (

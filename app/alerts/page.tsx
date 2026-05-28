@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react"
 import { SandraHeader } from "@/components/layout/SandraHeader"
 import { AlertCard } from "@/components/alerts/AlertCard"
 import { ReasoningPanel } from "@/components/alerts/ReasoningPanel"
+import { useDemoMode } from "@/lib/demo-context"
 import { fraudAlerts, injectableAlerts } from "@/lib/tools/executors"
 import type { FraudAlert } from "@/lib/types"
 import { dispatchSandraAsk } from "@/lib/sandra-events"
@@ -16,6 +17,15 @@ export default function AlertsPage() {
   const [injectIndex, setInjectIndex] = useState(0)
   const [agentFilter, setAgentFilter] = useState<string>("All")
   const [toolFilter, setToolFilter] = useState<string>("All")
+
+  const { isActive, currentStepData } = useDemoMode()
+
+  useEffect(() => {
+    if (!isActive || !currentStepData) return
+    if (currentStepData.autoSelectAlert !== undefined) {
+      setSelectedIndex(currentStepData.autoSelectAlert)
+    }
+  }, [isActive, currentStepData])
   // Extract all unique tools used across all alerts
   const availableTools = useMemo(() => {
     const tools = new Set<string>()

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Converse with Sandra AI for KYC investigations, AML screening, compliance reasoning, and fraud analysis.",
 }
 
-export default function ChatPage() {
+export default function ChatPage({ searchParams }: { searchParams: { prefill?: string } }) {
   return (
     <div className="flex flex-col h-full">
       <SandraHeader
@@ -15,7 +15,7 @@ export default function ChatPage() {
         subtitle="Ask Sandra anything about your verification, compliance, or fraud stack"
       />
       <div className="flex-1 overflow-hidden">
-        <ChatWindow />
+        <ChatWindow initialMessage={searchParams.prefill} />
       </div>
     </div>
   )
