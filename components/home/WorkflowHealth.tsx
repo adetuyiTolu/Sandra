@@ -53,9 +53,9 @@ export function WorkflowHealth() {
                 </div>
               </div>
               <div className={`shrink-0 px-2 py-0.5 rounded text-[10px] font-bold border ${
-                workflow.status === "Needs Review" 
+                (workflow.status as string) === "Needs Review" 
                   ? "bg-amber-500/10 text-amber-400 border-amber-500/20" 
-                  : workflow.status === "Paused"
+                  : (workflow.status as string) === "Paused"
                     ? "bg-[#1A1A1A] text-[#888] border-[#333]"
                     : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
               }`}>
