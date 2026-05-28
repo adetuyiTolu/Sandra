@@ -25,8 +25,9 @@ export function AgentStatusPanel() {
       
       <div className="flex flex-col gap-3">
         {agentStatus.map((agent, i) => {
-          const isOperational = agent.state === "nominal"
-          const isDegraded = agent.state === "degraded"
+          const state = agent.state as string
+          const isOperational = state === "nominal"
+          const isDegraded = state === "degraded"
           const dotColor = isOperational ? "text-emerald-400 fill-emerald-400" : isDegraded ? "text-amber-400 fill-amber-400" : "text-rose-400 fill-rose-400"
           
           return (
