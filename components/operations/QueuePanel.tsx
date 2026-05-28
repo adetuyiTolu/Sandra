@@ -58,17 +58,17 @@ interface QueuePanelProps {
 
 export function QueuePanel({ selectedQueue, onSelectQueue }: QueuePanelProps) {
   return (
-    <div className="w-52 shrink-0 border-r border-white/5 bg-[#050505] flex flex-col py-4">
-      <div className="px-4 mb-3">
+    <div className="w-full md:w-52 shrink-0 border-b md:border-b-0 md:border-r border-white/5 bg-[#050505] flex flex-col md:py-4 py-2">
+      <div className="px-4 mb-2 md:mb-3 hidden md:block">
         <div className="text-[10px] font-semibold text-[#555555] uppercase tracking-widest">Work Queues</div>
       </div>
-      <div className="flex flex-col gap-1.5 px-2">
+      <div className="flex flex-row md:flex-col gap-1.5 px-2 overflow-x-auto sidebar-scrollbar pb-2 md:pb-0">
         {queues.map((q) => (
           <button
             key={q.id}
             onClick={() => onSelectQueue(q.id)}
             className={cn(
-              "flex flex-col gap-1.5 px-3 py-2.5 rounded-xl text-left transition-all w-full",
+              "flex flex-col gap-1.5 px-3 py-2.5 rounded-xl text-left transition-all shrink-0 md:w-full w-[150px]",
               selectedQueue === q.id
                 ? "glass-panel border border-[#37b7ab]/30 shadow-premium"
                 : "hover:glass-panel border border-transparent"

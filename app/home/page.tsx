@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { RefreshCw } from "lucide-react"
+import { RefreshCw, Menu } from "lucide-react"
 
 import { SandraBriefing } from "@/components/home/SandraBriefing"
 import { AttentionRequired } from "@/components/home/AttentionRequired"
@@ -231,12 +231,21 @@ export default function HomeDashboard() {
   return (
     <div className="flex-1 h-screen overflow-y-auto bg-[#050505] text-[#EAEAEA]">
       {/* Header */}
-      <header className="px-8 py-5 border-b border-[#222] flex flex-col sm:flex-row sm:items-center justify-between sticky top-0 bg-[#050505]/95 backdrop-blur z-30">
-        <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Home</h1>
-          <p className="text-xs text-[#888] mt-1">
-            Last updated 2 minutes ago
-          </p>
+      <header className="px-4 md:px-8 py-5 border-b border-[#222] flex flex-col sm:flex-row sm:items-center justify-between sticky top-0 bg-[#050505]/95 backdrop-blur z-30 gap-4 sm:gap-0">
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={() => window.dispatchEvent(new Event('sandra:toggle-menu'))}
+            className="md:hidden text-[#888] hover:text-[#EAEAEA] transition-colors"
+            aria-label="Toggle menu"
+          >
+            <Menu size={20} />
+          </button>
+          <div>
+            <h1 className="text-[15px] font-semibold text-[#EAEAEA]">Home</h1>
+            <p className="text-xs text-[#888888] mt-0.5 hidden sm:block">
+              Last updated 2 minutes ago
+            </p>
+          </div>
         </div>
         
         <div className="flex items-center gap-4 mt-4 sm:mt-0">

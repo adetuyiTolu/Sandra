@@ -23,7 +23,7 @@
 
 import { useDemoMode } from "@/lib/demo-context"
 import { cn } from "@/lib/utils"
-import { Play, X } from "lucide-react"
+import { Play, X, Menu } from "lucide-react"
 
 interface SandraHeaderProps {
   title: string
@@ -35,9 +35,18 @@ export function SandraHeader({ title, subtitle }: SandraHeaderProps) {
 
   return (
     <div className="flex items-center justify-between px-5 py-3 bg-[#0A0A0A]/90 backdrop-blur border-b border-white/5">
-      <div>
-        <h1 className="text-[15px] font-semibold text-[#EAEAEA]">{title}</h1>
-        {subtitle && <p className="text-xs text-[#888888] mt-0.5">{subtitle}</p>}
+      <div className="flex items-center gap-3">
+        <button 
+          onClick={() => window.dispatchEvent(new Event('sandra:toggle-menu'))}
+          className="md:hidden text-[#888] hover:text-[#EAEAEA] transition-colors"
+          aria-label="Toggle menu"
+        >
+          <Menu size={18} />
+        </button>
+        <div>
+          <h1 className="text-[15px] font-semibold text-[#EAEAEA]">{title}</h1>
+          {subtitle && <p className="text-xs text-[#888888] mt-0.5 hidden sm:block">{subtitle}</p>}
+        </div>
       </div>
 
       <button

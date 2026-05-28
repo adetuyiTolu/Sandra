@@ -92,11 +92,11 @@ export default function AlertsPage() {
         title="Alerts"
         subtitle="Sandra surfaces these proactively — new alerts appear automatically"
       />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
         {/* Alert feed */}
-        <div className="w-80 shrink-0 border-r border-white/5 flex flex-col overflow-hidden bg-[#0A0A0A]">
+        <div className="w-full md:w-80 shrink-0 border-b md:border-b-0 md:border-r border-white/5 flex flex-col overflow-hidden bg-[#0A0A0A] h-[45vh] md:h-auto">
           {/* Feed header */}
-          <div className="px-4 py-3 border-b border-white/5 bg-[#0A0A0A] flex items-center gap-2 sticky top-0 z-10">
+          <div className="px-4 py-3 border-b border-white/5 bg-[#0A0A0A] flex items-center gap-2 sticky top-0 z-10 shrink-0">
             <Bell size={14} className="text-[#555555]" />
             <span className="text-xs font-semibold text-[#888888]">{alerts.length} alerts</span>
             {newCount > 0 && (
@@ -172,7 +172,7 @@ export default function AlertsPage() {
         </div>
 
         {/* Reasoning panel */}
-        <div className="flex-1 overflow-hidden bg-[#0A0A0A]">
+        <div className="flex-1 overflow-y-auto bg-[#0A0A0A]">
           {filteredAlerts[selectedIndex] ? (
             <ReasoningPanel
               alert={filteredAlerts[selectedIndex]}

@@ -120,12 +120,12 @@ export default function OperationsPage() {
         title="Operations"
         subtitle="Sandra has pre-sorted and assessed every item in your queues"
       />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
         {/* Queue selector */}
         <QueuePanel selectedQueue={selectedQueue} onSelectQueue={handleQueueChange} />
 
         {/* Item list */}
-        <div className="w-72 shrink-0 border-r border-white/5 overflow-y-auto bg-[#0A0A0A]">
+        <div className="w-full md:w-72 shrink-0 border-b md:border-b-0 md:border-r border-white/5 overflow-y-auto bg-[#0A0A0A] h-[35vh] md:h-auto">
           <div className="px-4 py-3 border-b border-white/5 sticky top-0 bg-[#0A0A0A] z-10">
             <div className="text-xs font-semibold text-[#888888]">
               {items.length} items · sorted by risk score

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Search, Filter, MoreHorizontal, X } from "lucide-react"
+import { Search, Filter, MoreHorizontal, X, Menu } from "lucide-react"
 import { Customer360Profile } from "@/lib/types"
 import { Customer360Card } from "@/components/customers/Customer360Card"
 
@@ -73,31 +73,40 @@ export default function Customer360Directory() {
     <div className="flex h-screen bg-[#050505] text-[#EAEAEA] overflow-hidden relative">
       <main className="flex-1 flex flex-col min-w-0">
         
-        <header className="px-6 py-4 border-b border-[#222222] flex items-center justify-between shrink-0 bg-[#0A0A0A]">
-          <div>
-            <h1 className="text-xl font-bold text-white tracking-tight">Customer Directory</h1>
-            <p className="text-sm text-[#888888] mt-0.5">Manage and view 360 profiles for all enrolled customers.</p>
+        <header className="px-4 md:px-6 py-4 border-b border-[#222222] flex flex-col md:flex-row items-start md:items-center justify-between shrink-0 bg-[#0A0A0A] gap-4">
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => window.dispatchEvent(new Event('sandra:toggle-menu'))}
+              className="md:hidden text-[#888] hover:text-[#EAEAEA] transition-colors"
+              aria-label="Toggle menu"
+            >
+              <Menu size={18} />
+            </button>
+            <div>
+              <h1 className="text-[15px] font-semibold text-[#EAEAEA]">Customer Directory</h1>
+              <p className="text-xs text-[#888888] mt-0.5 hidden sm:block">Manage and view 360 profiles for all enrolled customers.</p>
+            </div>
           </div>
           
-          <div className="flex items-center gap-3">
-            <div className="relative">
+          <div className="flex items-center gap-3 w-full md:w-auto">
+            <div className="relative flex-1 md:flex-none">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#777]" />
               <input 
                 type="text" 
                 placeholder="Search customers..." 
-                className="w-64 bg-[#141414] border border-[#222222] rounded-md py-1.5 pl-9 pr-3 text-sm text-white placeholder:text-[#666] focus:outline-none focus:border-[#444] transition-colors"
+                className="w-full md:w-64 bg-[#141414] border border-[#222222] rounded-md py-1.5 pl-9 pr-3 text-sm text-white placeholder:text-[#666] focus:outline-none focus:border-[#444] transition-colors"
               />
             </div>
-            <button className="flex items-center gap-2 px-3 py-1.5 bg-[#141414] border border-[#222222] rounded-md text-sm hover:bg-[#1A1A1A] transition-colors">
+            <button className="flex items-center gap-2 px-3 py-1.5 bg-[#141414] border border-[#222222] rounded-md text-sm hover:bg-[#1A1A1A] transition-colors shrink-0">
               <Filter size={14} className="text-[#888]" />
               Filter
             </button>
           </div>
         </header>
 
-        <div className="flex-1 overflow-auto p-6">
-          <div className="rounded-xl border border-[#222222] overflow-hidden bg-[#0A0A0A] shadow-xl">
-            <table className="w-full text-left border-collapse">
+        <div className="flex-1 overflow-auto p-4 md:p-6">
+          <div className="rounded-xl border border-[#222222] overflow-x-auto bg-[#0A0A0A] shadow-xl">
+            <table className="w-full text-left border-collapse min-w-[700px]">
               <thead>
                 <tr className="bg-[#111] border-b border-[#222]">
                   <th className="px-5 py-3 text-xs font-semibold text-[#888] uppercase tracking-wider">Customer / Entity</th>
@@ -147,7 +156,7 @@ export default function Customer360Directory() {
 
       {/* Slide-over panel for Customer 360 */}
       <div 
-        className={`absolute inset-y-0 right-0 w-[500px] bg-[#0A0A0A] border-l border-[#222] shadow-2xl transform transition-transform duration-300 ease-in-out z-50 flex flex-col ${
+        className={`absolute inset-y-0 right-0 w-full sm:w-[500px] bg-[#0A0A0A] border-l border-[#222] shadow-2xl transform transition-transform duration-300 ease-in-out z-50 flex flex-col ${
           selectedCustomer ? "translate-x-0" : "translate-x-full"
         }`}
       >

@@ -16,6 +16,7 @@ import {
   Settings,
   ShieldCheck,
   Zap,
+  X,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -153,6 +154,18 @@ export function Sidebar() {
   const pathname = usePathname()
   const router = useRouter()
   const [openCategories, setOpenCategories] = useState<Set<string>>(new Set())
+  const [isMobileOpen, setIsMobileOpen] = useState(false)
+
+  useEffect(() => {
+    const handleToggle = () => setIsMobileOpen(prev => !prev)
+    window.addEventListener('sandra:toggle-menu', handleToggle)
+    return () => window.removeEventListener('sandra:toggle-menu', handleToggle)
+  }, [])
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileOpen(false)
+  }, [pathname])
 
   useEffect(() => {
     setOpenCategories(prev => {
@@ -296,9 +309,21 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="w-[260px] shrink-0 h-screen flex flex-col overflow-hidden bg-[#050505] border-r border-white/5 text-[#EAEAEA]">
-      <div className="px-3 py-4">
-        <div className="flex items-center rounded-md px-2">
+    <>
+      {/* Mobile backdrop */}
+      {isMobileOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
+      <aside className={cn(
+        "fixed md:static inset-y-0 left-0 z-50 w-[260px] shrink-0 h-screen flex flex-col overflow-hidden bg-[#050505] border-r border-white/5 text-[#EAEAEA] transition-transform duration-300 ease-in-out",
+        isMobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+      )}>
+        <div className="px-3 py-4 flex items-center justify-between">
+          <div className="flex items-center rounded-md px-2">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5813.7 1796.3" style={{ height: "22px", width: "71px" }} aria-label="Prembly">
             <g><path fill="#37b7ab" d="M1132.3,606.3c-9.5-221.7-260.8-418.1-547-427.6H65.2l-20.4-24.9h-12.8v452.5c0,231.2,254.5,418.1,550.1,427.6,289.4-9.5,540.7-205.7,550.2-427.6Z"></path><path fill="#37b7ab" d="M307.8,1584.4c-111.2-6.1-208.4-132.3-211.4-274.9l3.1-261.3-7.9-8v-6.3l222.7,2.6c116.1,1.4,208.4,129.2,211.4,276.5-6.5,144.1-106.6,268-217.9,271.4Z"></path></g>
             <path fill="#37b7ab" d="M2031.8,701c24.5,47.1,36.8,102.3,36.8,165.6s-12.3,116.1-36.8,163.2c-22.9,45.3-58.4,83.2-102.1,109.1-43.5,25.7-92.9,38.6-148.3,38.5-45.1,0-84.3-8.3-117.5-24.9-31.8-15.4-59.2-38.7-79.5-67.6v322.6h-128.3v-844.8h111.6l15.5,90.2c49.1-64.9,115.2-97.4,198.3-97.4,55.4,0,104.8,12.5,148.3,37.4,43.8,25.3,79.3,62.9,102,108.1ZM1938.1,866.5c0-60.1-16.4-108.8-49.3-146-32.8-37.2-75.8-55.8-128.7-55.9-53,0-95.8,18.4-128.2,55.2-32.4,36.8-48.6,84.9-48.5,144.4,0,61,16.2,110.4,48.6,148.3s75.1,56.9,128.2,57c53,0,95.9-19,128.7-57,32.9-38,49.3-86.6,49.2-146Z"></path>
@@ -310,6 +335,12 @@ export function Sidebar() {
             <path fill="#37b7ab" d="M5341.5,1031.5l165-468.7h136.3l-275.3,702.6c-10.7,28.9-23.8,56.9-39.1,83.7-10.6,18.2-25.8,33.3-43.9,43.9-17.4,9.9-40.7,14.9-70,14.9h-137.7v-112.9h90.2c24.5,0,41.6-3.8,51-11.3,9.5-7.5,19.4-24.3,29.7-50.4l24.9-58.2-237.4-612.3h136.3l170,468.7Z"></path>
           </svg>
         </div>
+        <button 
+          className="md:hidden text-[#888] hover:text-[#EAEAEA] p-1 transition-colors"
+          onClick={() => setIsMobileOpen(false)}
+        >
+          <X size={18} />
+        </button>
       </div>
 
       <div className="flex-1 overflow-y-auto sidebar-scrollbar px-3 py-3 flex flex-col gap-1">
@@ -338,5 +369,6 @@ export function Sidebar() {
         </button>
       </div>
     </aside>
+    </>
   )
 }
