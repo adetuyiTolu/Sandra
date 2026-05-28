@@ -48,17 +48,7 @@ const navSections: NavSection[] = [
       { label: "Chat", href: "/chat", icon: MessageSquare },
       { label: "Operations", href: "/operations", icon: LayoutGrid },
       { label: "Alerts", href: "/alerts", icon: Bell, badge: "3" },
-      { label: "Customer 360", href: "/customer-360", icon: Cpu },
-      {
-        label: "Connected Agents",
-        isAgent: true,
-        collapsible: true,
-        count: 2,
-        children: [
-          { label: "Compliance Agent", badge: "NG · KE · US · EU" },
-          { label: "Fraud Intelligence", badge: "Pattern analysis · bank graph" },
-        ]
-      }
+      { label: "Customer 360", href: "/customer-360", icon: Cpu }
     ]
   },
   {
