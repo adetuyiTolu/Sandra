@@ -367,12 +367,22 @@ export default function WorkflowsPage() {
                     </div>
                     <div className="flex-1">
                       <label className="block text-[11px] text-[#888] mb-1.5 font-bold">Brand color</label>
-                      <div className="flex gap-2">
+                      <div className="flex items-center gap-2 bg-[#0A0A0A] border border-[#333] rounded-md px-2 py-1.5 focus-within:border-[#37b7ab] transition-colors">
                         <input 
                           type="color" 
                           value={brandColor}
                           onChange={(e) => setBrandColor(e.target.value)}
-                          className="w-9 h-9 rounded cursor-pointer bg-transparent border-0 p-0"
+                          className="w-6 h-6 rounded cursor-pointer bg-transparent border-0 p-0 shrink-0"
+                        />
+                        <input
+                          type="text"
+                          value={brandColor}
+                          onChange={(e) => {
+                            const v = e.target.value
+                            if (/^#[0-9A-Fa-f]{0,6}$/.test(v)) setBrandColor(v)
+                          }}
+                          className="w-full bg-transparent text-[12px] text-white font-mono focus:outline-none"
+                          maxLength={7}
                         />
                       </div>
                     </div>

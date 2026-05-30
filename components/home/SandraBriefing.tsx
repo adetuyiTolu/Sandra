@@ -2,12 +2,19 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Circle, ArrowRight } from "lucide-react"
+import { Circle, ArrowRight, X } from "lucide-react"
 import { sandraBriefing } from "@/lib/mock/home"
 import { Skeleton } from "@/components/ui/skeleton"
 
 export function SandraBriefing({ refreshTrigger }: { refreshTrigger: number }) {
   const [loading, setLoading] = useState(true)
+  const [dismissed, setDismissed] = useState(false)
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const stored = sessionStorage.getItem("sandra_briefing_dismissed")
+    if (stored === "true") setDismissed(true)
+  }, [])
 
   useEffect(() => {
     setLoading(true)
@@ -17,8 +24,21 @@ export function SandraBriefing({ refreshTrigger }: { refreshTrigger: number }) {
     return () => clearTimeout(timer)
   }, [refreshTrigger])
 
+  const handleDismiss = () => {
+    setVisible(false)
+    setTimeout(() => {
+      setDismissed(true)
+      sessionStorage.setItem("sandra_briefing_dismissed", "true")
+    }, 300)
+  }
+
+  if (dismissed) return null
+
   return (
-    <div className="relative w-full glass-card rounded-xl overflow-hidden hover:-translate-y-1 transition-all duration-300 shadow-premium">
+    <div 
+      className="relative w-full glass-card rounded-xl overflow-hidden shadow-premium transition-all duration-300"
+      style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(-8px)' }}
+    >
       {/* Left Teal Border Accent */}
       <div className="absolute top-0 left-0 bottom-0 w-1 bg-[#37b7ab]" />
 
@@ -38,6 +58,13 @@ export function SandraBriefing({ refreshTrigger }: { refreshTrigger: number }) {
                 <span className="text-[10px] text-[#A0A0A0]">{agent}</span>
               </div>
             ))}
+            <button
+              onClick={handleDismiss}
+              className="ml-1 w-6 h-6 rounded-md flex items-center justify-center text-[#666] hover:text-[#EAEAEA] hover:bg-white/5 transition-colors"
+              title="Dismiss briefing"
+            >
+              <X size={13} />
+            </button>
           </div>
         </div>
 
