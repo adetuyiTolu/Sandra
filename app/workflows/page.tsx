@@ -17,7 +17,7 @@ const FRAMEWORK_MAP: Record<string, string> = {
 }
 
 export default function WorkflowsPage() {
-  const { isDemoMode } = useDemoMode()
+  const { isActive: isDemoMode } = useDemoMode()
   const [activeTab, setActiveTab] = useState<"preview" | "visual" | "code">("preview")
   const [activeSetupTab, setActiveSetupTab] = useState<"profile" | "identity" | "security" | "scoring">("profile")
   const [institutionName, setInstitutionName] = useState("Zeta Microfinance")
