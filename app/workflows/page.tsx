@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { Menu, Play, Code, Box, Check, Copy, ExternalLink, ChevronDown, CheckSquare, Square, MoreHorizontal, ArrowDown, User, FileText, Scan, Camera, Upload, ShieldCheck, Clock, GitBranch, Info, ShieldAlert, MapPin, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useDemoMode } from "@/lib/demo-context"
@@ -194,88 +194,75 @@ export default function WorkflowsPage() {
 
   const activeAdditionalDocs = lists.additionalDocs;
 
-  const configObject = {
-    api_version: "2026-05-30",
-    environment: "production",
-    webhook_url: redirectUrl,
-    institution: {
-      id: configId,
-      name: institutionName,
-      tier: "Tier_2",
-      operating_license: license === 'No license (Sector-based)' ? 'unlicensed' : license.toLowerCase().replace(/ /g, '_')
-    },
-    workflow: {
-      target_entity: customerType.toLowerCase(),
-      supported_regions: markets,
-      regulatory_frameworks: markets.map(m => FRAMEWORK_MAP[m]),
-      routing_logic: markets.reduce((acc, m) => {
-        const anchor = routingConfig[m] || "document";
-        let provider = "global_doc";
-        if (customerType === "Individual") {
-          provider = anchor === "BVN" ? "nibss" : anchor === "IPRS" ? "iprs" : anchor === "HANIS" ? "dha" : anchor === "GhanaCard" ? "nia" : "global_doc";
-        } else {
-          provider = anchor === "CAC" ? "cac" : anchor === "BRS" ? "ecitizen" : anchor === "CIPC" ? "cipc" : anchor === "RGD" ? "rgd" : "global_registry";
+  const configJson = useMemo(() => {
+    const obj = {
+      api_version: "2026-05-30",
+      environment: "production",
+      webhook_url: redirectUrl,
+      institution: {
+        id: configId,
+        name: institutionName,
+        tier: "Tier_2",
+        operating_license: license === 'No license (Sector-based)' ? 'unlicensed' : license.toLowerCase().replace(/ /g, '_')
+      },
+      workflow: {
+        target_entity: customerType.toLowerCase(),
+        supported_regions: markets,
+        regulatory_frameworks: markets.map(m => FRAMEWORK_MAP[m]),
+        routing_logic: markets.reduce((acc, m) => {
+          const anchor = routingConfig[m] || "document";
+          let provider = "global_doc";
+          if (customerType === "Individual") {
+            provider = anchor === "BVN" ? "nibss" : anchor === "IPRS" ? "iprs" : anchor === "HANIS" ? "dha" : anchor === "GhanaCard" ? "nia" : "global_doc";
+          } else {
+            provider = anchor === "CAC" ? "cac" : anchor === "BRS" ? "ecitizen" : anchor === "CIPC" ? "cipc" : anchor === "RGD" ? "rgd" : "global_registry";
+          }
+          acc[m] = { primary_anchor: anchor, provider_engine: provider };
+          return acc;
+        }, {} as Record<string, any>)
+      },
+      verification_engine: {
+        document_ocr: features.documentOcr,
+        liveness: features.liveness ? { enabled: true, minimum_confidence_score: faceConfidence } : { enabled: false },
+        address_verification: features.addressVerification ? {
+          enabled: true,
+          method: features.addressVerificationMethod,
+          ...(features.addressVerificationMethod === 'digital' ? { ping_frequency: features.digitalPingFrequency } : {})
+        } : { enabled: false },
+        background_screening: features.backgroundCheck ? { enabled: true, package: backgroundPackage } : { enabled: false },
+        directors_ubo: (customerType === "Business" && features.collectDirectorsInfo) ? {
+          collect_info: true, verify_identities: features.verifyDirectors
+        } : { collect_info: false }
+      },
+      security_and_aml: {
+        fraud_lens: features.fraudScan ? { enabled: true, force_manual_review_on_hit: features.fraudLensManualReview } : { enabled: false },
+        aml_screening: (features.pepScreening || features.adverseMedia || lists.sanctions.length > 0) ? {
+          enabled: true, watchlists: lists.sanctions, pep_check: features.pepScreening,
+          adverse_media: features.adverseMedia, ongoing_monitoring: features.ongoingMonitoring
+        } : { enabled: false },
+        transaction_monitoring: {
+          velocity_alerts: features.velocityAlerts, structuring_detection: features.structuringDetection, sar_auto_draft: features.sarAutoDraft
         }
-        acc[m] = { primary_anchor: anchor, provider_engine: provider };
-        return acc;
-      }, {} as Record<string, any>)
-    },
-    verification_engine: {
-      document_ocr: features.documentOcr,
-      liveness: features.liveness ? {
-        enabled: true,
-        minimum_confidence_score: faceConfidence
-      } : { enabled: false },
-      address_verification: features.addressVerification ? {
-        enabled: true,
-        method: features.addressVerificationMethod,
-        ...(features.addressVerificationMethod === 'digital' ? { ping_frequency: features.digitalPingFrequency } : {})
-      } : { enabled: false },
-      background_screening: features.backgroundCheck ? {
-        enabled: true,
-        package: backgroundPackage
-      } : { enabled: false },
-      directors_ubo: (customerType === "Business" && features.collectDirectorsInfo) ? {
-        collect_info: true,
-        verify_identities: features.verifyDirectors
-      } : { collect_info: false }
-    },
-    security_and_aml: {
-      fraud_lens: features.fraudScan ? {
-        enabled: true,
-        force_manual_review_on_hit: features.fraudLensManualReview
-      } : { enabled: false },
-      aml_screening: (features.pepScreening || features.adverseMedia || lists.sanctions.length > 0) ? {
-        enabled: true,
-        watchlists: lists.sanctions,
-        pep_check: features.pepScreening,
-        adverse_media: features.adverseMedia,
-        ongoing_monitoring: features.ongoingMonitoring
-      } : { enabled: false },
-      transaction_monitoring: {
-        velocity_alerts: features.velocityAlerts,
-        structuring_detection: features.structuringDetection,
-        sar_auto_draft: features.sarAutoDraft
+      },
+      decision_matrix: {
+        auto_approve_threshold: threshold,
+        manual_review_floor: manualReviewFloor,
+        auto_decline_ceiling: manualReviewFloor - 1,
+        hard_block_sanctions: features.hardBlockSanctions,
+        score_weights: {
+          identity_anchor: scoreWeights.identity,
+          ...(features.addressVerification && { address: scoreWeights.address }),
+          ...(features.backgroundCheck && { background: scoreWeights.background }),
+          ...(features.liveness && { liveness: scoreWeights.liveness }),
+          ...(features.documentOcr && { document_ocr: scoreWeights.document }),
+          ...(features.fraudScan && { fraudlens: scoreWeights.fraud }),
+          ...((customerType === "Business" && features.collectDirectorsInfo && features.verifyDirectors) && { director_kyc: scoreWeights.director })
+        }
       }
-    },
-    decision_matrix: {
-      auto_approve_threshold: threshold,
-      manual_review_floor: manualReviewFloor,
-      auto_decline_ceiling: manualReviewFloor - 1,
-      hard_block_sanctions: features.hardBlockSanctions,
-      score_weights: {
-        identity_anchor: scoreWeights.identity,
-        ...(features.addressVerification && { address: scoreWeights.address }),
-        ...(features.backgroundCheck && { background: scoreWeights.background }),
-        ...(features.liveness && { liveness: scoreWeights.liveness }),
-        ...(features.documentOcr && { document_ocr: scoreWeights.document }),
-        ...(features.fraudScan && { fraudlens: scoreWeights.fraud }),
-        ...((customerType === "Business" && features.collectDirectorsInfo && features.verifyDirectors) && { director_kyc: scoreWeights.director })
-      }
-    }
-  };
-
-  const configJson = JSON.stringify(configObject, null, 2);
+    };
+    return JSON.stringify(obj, null, 2);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [redirectUrl, configId, institutionName, license, customerType, markets, routingConfig, features, faceConfidence, backgroundPackage, lists.sanctions, threshold, manualReviewFloor, scoreWeights]);
 
   const totalScore = Object.values(scoreWeights).reduce((a, b) => a + b, 0)
   const isScoreValid = totalScore === 100
@@ -978,8 +965,11 @@ export default function WorkflowsPage() {
                     <div className="w-32 h-5 bg-[#222] rounded-b-xl"></div>
                   </div>
 
+                  {/* Brand Color Status Bar accent */}
+                  <div className="h-1 w-full transition-colors duration-300 shrink-0" style={{ backgroundColor: brandColor }} />
+
                   {/* App Header */}
-                  <div className="px-6 pt-10 pb-4 border-b border-gray-100 flex items-center gap-3 bg-white z-10 shadow-sm transition-all duration-300">
+                  <div className="px-6 pt-8 pb-4 border-b border-gray-100 flex items-center gap-3 bg-white z-10 shadow-sm transition-all duration-300">
                     <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-sm transition-colors duration-300" style={{ backgroundColor: brandColor }}>
                       {institutionName ? institutionName.charAt(0).toUpperCase() : "Z"}
                     </div>
