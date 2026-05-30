@@ -1,0 +1,142 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.tracker{padding:1.5rem 0;font-family:var(--font-sans);}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;}
+.fb{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;}
+.fb.on{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary);}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.5rem;}
+.stat{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;}
+.sl{font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;}
+.sv{font-size:20px;font-weight:500;color:var(--color-text-primary);}
+.sec-hdr{font-size:11px;font-weight:500;color:var(--color-text-secondary);letter-spacing:.05em;margin:1.25rem 0 .6rem;padding-bottom:6px;border-bottom:.5px solid var(--color-border-tertiary);}
+.card{background:var(--color-background-primary);border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 14px;margin-bottom:8px;}
+.card.done{opacity:.5;}
+.top{display:flex;gap:10px;align-items:flex-start;}
+.cb{width:17px;height:17px;min-width:17px;border-radius:50%;border:1.5px solid var(--color-border-primary);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0;}
+.cb.chk{background:#1D9E75;border-color:#1D9E75;}
+.cb.chk::after{content:'';width:7px;height:4px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translate(1px,-1px);display:block;}
+.main{flex:1;min-width:0;}
+.ttl{font-size:13px;font-weight:500;color:var(--color-text-primary);line-height:1.45;margin-bottom:6px;}
+.card.done .ttl{text-decoration:line-through;color:var(--color-text-secondary);}
+.meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.badge{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500;}
+.bt{background:#EEEDFE;color:#3C3489;}
+.bm{background:#E1F5EE;color:#085041;}
+.be{background:#FAEEDA;color:#633806;}
+.bl{background:#E6F1FB;color:#0C447C;}
+.by{background:#FBEAF0;color:#72243E;}
+.udot{width:6px;height:6px;border-radius:50%;background:#E24B4A;flex-shrink:0;}
+.dl{font-size:11px;color:var(--color-text-tertiary);}
+.dl.hot{color:#A32D2D;}
+.nt-btn{font-size:11px;color:var(--color-text-secondary);background:none;border:none;cursor:pointer;padding:0;margin-top:6px;display:flex;align-items:center;gap:3px;}
+.nt{font-size:12px;color:var(--color-text-secondary);margin-top:8px;padding-top:8px;border-top:.5px solid var(--color-border-tertiary);line-height:1.55;display:none;}
+.nt.open{display:block;}
+.empty{text-align:center;padding:2rem;color:var(--color-text-secondary);font-size:13px;}
+</style>
+
+<div class="tracker">
+<h2 class="sr-only">Prembly team task tracker</h2>
+<div class="filters" id="filters">
+<button class="fb on" onclick="sf(this,'all')">All</button>
+<button class="fb" onclick="sf(this,'Tolu')">Tolu</button>
+<button class="fb" onclick="sf(this,'Marketing')">Marketing</button>
+<button class="fb" onclick="sf(this,'EMT')">EMT</button>
+<button class="fb" onclick="sf(this,'Lanre')">Lanre</button>
+<button class="fb" onclick="sf(this,'Yobo')">Yobo</button>
+<button class="fb" onclick="sf(this,'urgent')">Urgent</button>
+</div>
+<div class="stats">
+<div class="stat"><div class="sl">Total</div><div class="sv" id="s0">0</div></div>
+<div class="stat"><div class="sl">Done</div><div class="sv" id="s1">0</div></div>
+<div class="stat"><div class="sl">Left</div><div class="sv" id="s2">0</div></div>
+<div class="stat"><div class="sl">Urgent</div><div class="sv" id="s3">0</div></div>
+</div>
+<div id="list"></div>
+</div>
+
+<script>
+var T=[
+{id:1,sec:"EMT — blockers first",title:"Decide who owns full-suite positioning and brief Yobo formally",owner:"EMT",urgent:true,dl:"This week",note:"Nothing on the suite positioning track moves until this is settled. Marketing cannot write around an unsigned brief. Yobo needs a clear mandate, not a direction. This is a one-meeting decision."},
+{id:2,sec:"EMT — blockers first",title:"Formalise consultant channel: budget, owner, commission structure",owner:"EMT",urgent:true,dl:"This week",note:"The conversations already happening with Tolu and Lanre are real. Without a milestone-based commission structure agreed at EMT level, these relationships stall before they convert. Milestone on first payment received, then volume tiers. Decide this week."},
+{id:3,sec:"EMT — blockers first",title:"All three founders formally add consultant distribution to 90-day goals",owner:"EMT",urgent:true,dl:"This week",note:"If Tolu, Lanre, and Neyo each make this a personal goal, the groundwork is done in 90 days and the channel generates sales passively. That is the whole argument for doing it this way. Put it in writing."},
+{id:4,sec:"Tolu — this week",title:"Reach out to Compliance Institute of Nigeria chairman",owner:"Tolu",urgent:true,dl:"This week",note:"The ex-Access Bank Group CCO contact is already warm. His access to the Institute's network is the fastest entry point into the consultant distribution channel. Do not wait."},
+{id:5,sec:"Tolu — this week",title:"Get into the MFB compliance WhatsApp group via Visa compliance officer admin",owner:"Tolu",urgent:true,dl:"This week",note:"First move is listening and adding value, not pitching. Assign one person as the group owner — Tolu or Lanre. This is an intelligence channel and a distribution entry point."},
+{id:6,sec:"Tolu — this week",title:"Send personal outreach to next 10 compliance officers",owner:"Tolu",urgent:true,dl:"2 weeks",note:"Use the email draft as the base. Do not delegate the sending. Compliance officers respond to founder attention specifically because it signals the conversation is not a sales call. The ask is input, not a purchase."},
+{id:7,sec:"Tolu — this week",title:"Name NFIU endorsement as a formal 90-day target with Tolu or Neyo owning it",owner:"Tolu",urgent:true,dl:"This week",note:"The compliance officer feedback said it plainly: NFIU credibility is the unlock that moves officers from interested to committed. This should be a stated goal with a name on it, not background ambition. If NFIU publicly validates the system, you do not need to convince compliance officers one by one."},
+{id:8,sec:"Tolu — this week",title:"Pick up the paused PSSP-to-MMO licensing conversation Lanre mentioned",owner:"Tolu",urgent:false,dl:"2 weeks",note:"This person is already a reseller candidate. Most licensing transitions require a compliance program, which Prembly can provision. The Compliance Agent can eventually recommend their platform for licensing too — a two-way referral engine worth building now."},
+{id:9,sec:"Tolu — this week",title:"Agree the one-paragraph suite narrative with Lanre so Marketing can brief Yobo",owner:"Tolu",urgent:true,dl:"This week",note:"Marketing is blocked on the suite positioning track until founders agree on the narrative. What is the one-paragraph version of what Prembly is as a full suite? Once that exists, Yobo gets briefed and the content track starts."},
+{id:10,sec:"Marketing — urgent",title:"Produce the OPay case study",owner:"Marketing",urgent:true,dl:"3 weeks",note:"This is the most obvious gap in your current content. OPay as a customer is a market signal that does the positioning work for you. Assign a writer, align internally on what can be disclosed, and publish it. This is your first PR asset and there is no reason it takes more than three weeks."},
+{id:11,sec:"Marketing — urgent",title:"Shift all channel messaging from API-feature framing to Continuous Compliance Protection",owner:"Marketing",urgent:true,dl:"After EMT brief",note:"This cannot happen until EMT signs off on the narrative. Once they do, every channel moves: website, ads, email sequences, social. Individual product awareness posts (NIN, BVN, TM) continue alongside the suite framing — they do not stop."},
+{id:12,sec:"Marketing — urgent",title:"Set launch date and registration infra for monthly compliance roundtable with ATR",owner:"Marketing",urgent:true,dl:"30 days",note:"First topic: CBN AML Guidelines. It is a live deadline that compliance officers are already stressed about. Tolu or Neyo anchors the first session. KPI is 100 compliance officers in the room within three months of launch. Showcase Prembly technology on the registration form itself."},
+{id:13,sec:"Marketing — ongoing",title:"Build two content tracks: individual product awareness and full suite positioning",owner:"Yobo",urgent:false,dl:"Ongoing",note:"Yobo leads the suite track. The individual product track continues in parallel — do not merge or replace it. Suite content should let the full picture become visible to prospects over time, not force it."},
+{id:14,sec:"Marketing — ongoing",title:"Set up internal process for real-time compliance and fraud commentary",owner:"Marketing",urgent:false,dl:"30 days",note:"Prembly should always have something to say when news breaks in the compliance or fraud space. Create a simple flag-and-publish process. Team members, including founders, flag developments. Marketing turns them around quickly. Does not have to be official channels — founder and employee voices count."},
+{id:15,sec:"Marketing — ongoing",title:"Book first fintech and MFB group session — Tolu presents virtually",owner:"Marketing",urgent:false,dl:"30 days",note:"A simple '5 things your compliance team should know' format is already defined. It is educational and it positions Prembly as the complete solution. Marketing identifies the groups and books the first date within 30 days."},
+{id:16,sec:"Marketing — ongoing",title:"Identify 2 to 3 associations for free consultation entry and secure a slot",owner:"Marketing",urgent:false,dl:"45 days",note:"The offer is genuine value through consultation. Prembly is introduced softly, not pitched. Marketing researches options, EMT approves, Tolu or the compliance team runs the sessions."},
+{id:17,sec:"Marketing — ongoing",title:"Scope first diagnostic free tool — rulebook template for PSP licensed companies",owner:"Marketing",urgent:false,dl:"45 days",note:"Use the language compliance officers actually search for. It functions as a funnel into the Compliance Agent and the suite. Marketing owns distribution, product owns what it does. Agree scope and handoff jointly."},
+{id:18,sec:"Lanre — product",title:"Complete the workflow to include every feature from verification through transaction monitoring",owner:"Lanre",urgent:true,dl:"2 weeks",note:"The system almost already covers everything a full compliance program needs. It just has not been packaged that way. This becomes the demo for all compliance officer conversations and the proof behind the suite positioning. The shocking thing is how close you already are."},
+{id:19,sec:"Lanre — product",title:"Share updated dashboard UI with Precious as the starting point for redesign",owner:"Lanre",urgent:false,dl:"2 weeks",note:"The different views per user type and the simplified workflow Lanre built show the full scope of what Prembly does. Precious should see this before any visual redesign work begins — it sets the right frame for what the product actually is."},
+{id:20,sec:"Lanre — product",title:"Define scope for developer playground for compliance program stress testing",owner:"Lanre",urgent:false,dl:"60 days",note:"Keep developers engaged without pulling them away from the compliance officer track. This is not the first priority but it is real. Do not let it consume engineering time ahead of the full workflow and the consultant channel — those come first."},
+{id:21,sec:"EMT joint — 90-day engine",title:"Have Ifeanyi support consultant channel groundwork while sales team focuses on large ticket deals",owner:"EMT",urgent:false,dl:"30 days",note:"This is not either-or. Ifeanyi supports the consultant channel build while the wider sales team continues closing. The channel becomes a parallel engine that generates revenue even when everyone else is focused elsewhere."},
+];
+
+var state={};var notes={};var cur='all';
+T.forEach(function(t){state[t.id]=false;notes[t.id]=false;});
+
+function sf(el,f){
+  cur=f;
+  document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('on');});
+  el.classList.add('on');
+  render();
+}
+
+function tog(id){state[id]=!state[id];render();}
+
+function togNote(id){
+  notes[id]=!notes[id];
+  var n=document.getElementById('n'+id);
+  if(n)n.classList.toggle('open',notes[id]);
+}
+
+function bc(o){
+  return o==='Tolu'?'bt':o==='Marketing'?'bm':o==='EMT'?'be':o==='Lanre'?'bl':o==='Yobo'?'by':'';
+}
+
+function render(){
+  var tasks=T.filter(function(t){
+    if(cur==='all')return true;
+    if(cur==='urgent')return t.urgent;
+    return t.owner===cur;
+  });
+
+  document.getElementById('s0').textContent=T.length;
+  document.getElementById('s1').textContent=Object.values(state).filter(Boolean).length;
+  document.getElementById('s2').textContent=T.length-Object.values(state).filter(Boolean).length;
+  document.getElementById('s3').textContent=T.filter(function(t){return t.urgent;}).length;
+
+  var secs=[];var seen={};
+  tasks.forEach(function(t){if(!seen[t.sec]){seen[t.sec]=true;secs.push(t.sec);}});
+
+  var html='';
+  if(!tasks.length){html='<div class="empty">No tasks match this filter.</div>';}
+  else{
+    secs.forEach(function(s){
+      html+='<div class="sec-hdr">'+s+'</div>';
+      tasks.filter(function(t){return t.sec===s;}).forEach(function(t){
+        var d=state[t.id];var no=notes[t.id];
+        html+='<div class="card'+(d?' done':'')+'"><div class="top">'
+        +'<button class="cb'+(d?' chk':'')+'" onclick="tog('+t.id+')" aria-label="'+(d?'Mark incomplete':'Mark done')+'"></button>'
+        +'<div class="main"><div class="ttl">'+t.title+'</div>'
+        +'<div class="meta">'+(t.urgent?'<span class="udot" title="Urgent"></span>':'')+' <span class="badge '+bc(t.owner)+'">'+t.owner+'</span>'
+        +' <span class="dl'+(t.dl==='This week'?' hot':'')+'">'+t.dl+'</span></div>'
+        +'<button class="nt-btn" onclick="togNote('+t.id+')">'+(no?'hide note':'show note')+'</button>'
+        +'<div class="nt'+(no?' open':'')+'" id="n'+t.id+'">'+t.note+'</div>'
+        +'</div></div></div>';
+      });
+    });
+  }
+  document.getElementById('list').innerHTML=html;
+}
+
+render();
+</script>
