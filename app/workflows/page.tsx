@@ -1251,7 +1251,7 @@ export default function WorkflowsPage() {
                   )}
                   
                   <FlowArrow />
-                  <FlowNode label="Risk engine decision" icon="box" state="pending" />
+                  <FlowNode label="Risk engine decision" icon="box" state="inactive" />
                   
                   {/* Decision Logic Branch */}
                   <div className="flex gap-4 mt-1">
