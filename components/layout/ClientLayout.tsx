@@ -16,7 +16,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
     <>
       <Sidebar />
       <div className="flex-1 flex overflow-hidden min-w-0">
-        <main className="flex-1 overflow-hidden min-w-0">
+        <main className="flex-1 overflow-hidden min-w-0 flex flex-col relative">
           {children}
         </main>
       </div>

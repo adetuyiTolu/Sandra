@@ -155,17 +155,17 @@ export default function OperationsPage() {
                   key={getItemId(item)}
                   onClick={() => setSelectedIndex(i)}
                   className={cn(
-                    "w-full text-left p-4 border-b border-white/5 transition-all-150",
+                    "w-full text-left p-3 border-b border-white/5 transition-all-150",
                     i === selectedIndex
-                      ? "glass-panel border-l-2 border-l-[#37b7ab] shadow-premium z-10"
+                      ? "glass-panel border-l-2 border-l-[#37b7ab] shadow-sm z-10"
                       : "bg-transparent hover:glass-panel border-l-2 border-l-transparent transition-all"
                   )}
                 >
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <div className="font-semibold text-[#EAEAEA] text-sm truncate">{getItemName(item)}</div>
-                    <span className={cn("text-base font-bold", riskColor(risk))}>{risk}</span>
+                  <div className="flex items-center justify-between gap-2 mb-0.5">
+                    <div className="font-semibold text-[#EAEAEA] text-[13px] truncate">{getItemName(item)}</div>
+                    <span className={cn("text-sm font-bold", riskColor(risk))}>{risk}</span>
                   </div>
-                  <div className="text-[11px] font-mono text-[#555555] mb-2">{getItemId(item)}</div>
+                  <div className="text-[11px] font-mono text-[#555555] mb-1.5">{getItemId(item)}</div>
                   <p className="text-xs text-[#888888] leading-relaxed line-clamp-2">{getAIAssessment(item)}</p>
                 </button>
               )
@@ -180,12 +180,12 @@ export default function OperationsPage() {
               <div className="text-sm">Select an item from the queue</div>
             </div>
           ) : (
-            <div className="p-8 max-w-3xl">
+            <div className="p-6 max-w-3xl">
               {/* Sandra's Assessment */}
               <div className={cn(
-                "glass-card rounded-xl border border-white/5 p-6 mb-8 shadow-premium hover:shadow-premium-hover transition-all duration-300",
+                "glass-card rounded-xl border border-white/5 p-5 mb-6 shadow-sm hover:shadow-md transition-all duration-300",
                 isActive && currentStepData?.highlightElement === "ai-summary-column" 
-                  ? "ring-2 ring-[#37b7ab] ring-offset-2 ring-offset-[#0A0A0A] shadow-[0_0_20px_rgba(55,183,171,0.2)] animate-pulse"
+                  ? "ring-1 ring-[#37b7ab] ring-offset-2 ring-offset-[#0A0A0A] shadow-[0_0_15px_rgba(55,183,171,0.15)] animate-pulse"
                   : ""
               )}>
                 <div className="flex items-center gap-2 mb-3">
@@ -197,8 +197,9 @@ export default function OperationsPage() {
                 {isKYC && kyc && kyc.risk_flags.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1.5">
                     {kyc.risk_flags.map((flag) => (
-                      <span key={flag} className="text-xs px-2.5 py-1 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400">
-                        ⚠ {flag}
+                      <span key={flag} className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md bg-[#1A1A1A] border border-[#333] text-[#A0A0A0]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#555]"></span>
+                        {flag}
                       </span>
                     ))}
                   </div>
@@ -206,9 +207,9 @@ export default function OperationsPage() {
               </div>
 
               {/* Entity details */}
-              <div className="mb-6">
-                <div className="text-sm font-semibold text-[#EAEAEA] mb-3">Entity Details</div>
-                <div className="grid grid-cols-2 gap-4">
+              <div className="mb-5">
+                <div className="text-[13px] font-semibold text-[#EAEAEA] mb-2.5">Entity Details</div>
+                <div className="grid grid-cols-2 gap-3">
                   {isKYC && kyc ? (
                     <>
                       {[
@@ -223,7 +224,7 @@ export default function OperationsPage() {
                       ].map(({ label, value }) => (
                         <div key={label}>
                           <div className="text-[10px] font-semibold text-[#555555] uppercase tracking-wide">{label}</div>
-                          <div className="text-sm text-[#A1A1AA] font-medium mt-0.5 font-mono">{value}</div>
+                          <div className="text-[13px] text-[#A1A1AA] font-medium mt-0.5 font-mono">{value}</div>
                         </div>
                       ))}
                     </>
@@ -237,9 +238,9 @@ export default function OperationsPage() {
               </div>
 
               {/* Action buttons */}
-              <div className="mb-8">
-                <div className="text-sm font-semibold text-[#EAEAEA] mb-3 tracking-tight">Required Actions</div>
-                <div className="flex flex-wrap gap-2.5">
+              <div className="mb-6">
+                <div className="text-[13px] font-semibold text-[#EAEAEA] mb-2.5 tracking-tight">Required Actions</div>
+                <div className="flex flex-wrap gap-2">
                   <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#37b7ab]/10 border border-[#37b7ab]/20 text-[#37b7ab] text-xs font-medium hover:bg-[#37b7ab]/20 transition-colors">
                     <CheckCircle size={13} /> Approve
                   </button>
@@ -259,8 +260,8 @@ export default function OperationsPage() {
               </div>
 
               {/* Ask Sandra */}
-              <div className="glass-panel rounded-xl border border-white/5 p-5 shadow-premium">
-                <div className="text-sm font-semibold text-[#EAEAEA] mb-2 flex items-center gap-2">
+              <div className="glass-panel rounded-xl border border-white/5 p-4 shadow-sm">
+                <div className="text-[13px] font-semibold text-[#EAEAEA] mb-2 flex items-center gap-2">
                   <MessageSquare size={14} className="text-[#37b7ab]" />
                   Ask Sandra about this item
                 </div>

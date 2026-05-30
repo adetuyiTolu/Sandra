@@ -15,16 +15,16 @@ export function PlatformActivity() {
 
   const getTrendColor = (type: string) => {
     switch(type) {
-      case "positive": return "text-emerald-400 bg-emerald-400/10 border-emerald-400/20"
-      case "warning": return "text-amber-400 bg-amber-400/10 border-amber-400/20"
-      case "neutral": default: return "text-[#888] bg-white/5 border-white/10"
+      case "positive": return "text-[#A0A0A0] bg-[#1A1A1A] border-[#333]"
+      case "warning": return "text-[#888] bg-[#111] border-[#222]"
+      case "neutral": default: return "text-[#666] bg-[#111] border-[#222]"
     }
   }
 
   return (
-    <div className="mb-8">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-[#EAEAEA]">Platform Activity</h2>
+    <div className="mb-5">
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-[13px] font-semibold text-[#EAEAEA]">Platform Activity</h2>
         
         <div className="relative">
           <button 
@@ -61,19 +61,19 @@ export function PlatformActivity() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="flex flex-col gap-3">
         {metrics.map((m, i) => (
-          <div key={i} className="glass-card rounded-xl p-5 hover:-translate-y-1 transition-all duration-300 shadow-premium">
+          <div key={i} className="glass-card rounded-xl p-4 hover:-translate-y-1 transition-all duration-300 shadow-sm">
             <div className="text-[11px] font-semibold text-[#888] uppercase tracking-wider mb-2">
               {m.label}
             </div>
-            <div className="flex items-end justify-between mb-3">
-              <div className="text-2xl font-bold text-[#EAEAEA]">{m.value}</div>
-              <div className={`px-2 py-0.5 rounded text-[10px] font-bold border ${getTrendColor(m.trendType)}`}>
+            <div className="flex items-end justify-between mb-2">
+              <div className="text-xl font-bold text-[#EAEAEA]">{m.value}</div>
+              <div className={`px-1.5 py-0.5 rounded text-[10px] font-bold border ${getTrendColor(m.trendType)}`}>
                 {m.trend}
               </div>
             </div>
-            <div className="text-xs text-[#666]">
+            <div className="text-[11px] text-[#666]">
               {m.subtext}
             </div>
           </div>

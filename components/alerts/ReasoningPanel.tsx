@@ -38,6 +38,7 @@
 
 "use client"
 
+import { useState } from "react"
 import type { FraudAlert } from "@/lib/types"
 import { ToolCallTrace } from "@/components/chat/ToolCallTrace"
 import { cn } from "@/lib/utils"
@@ -51,25 +52,33 @@ import {
   BookOpen,
   Target,
   Network,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react"
 
 const severityColor: Record<string, string> = {
-  CRITICAL: "text-red-400 border-red-500/20 bg-red-500/10",
-  HIGH: "text-amber-400 border-amber-500/20 bg-amber-500/10",
-  MEDIUM: "text-amber-400 border-amber-500/20 bg-amber-500/10",
-  LOW: "text-emerald-400 border-emerald-500/20 bg-emerald-500/10",
+  CRITICAL: "text-[#EAEAEA] border-[#333] bg-[#1A1A1A]",
+  HIGH: "text-[#A0A0A0] border-[#222] bg-[#111]",
+  MEDIUM: "text-[#888] border-[#222] bg-[#111]",
+  LOW: "text-[#666] border-[#222] bg-[#111]",
 }
 
 interface ReasoningPanelProps {
   alert: FraudAlert
   onAskSandra?: () => void
+  onDismiss?: () => void
+  onAcknowledge?: () => void
 }
 
-export function ReasoningPanel({ alert, onAskSandra }: ReasoningPanelProps) {
+export function ReasoningPanel({ alert, onAskSandra, onDismiss, onAcknowledge }: ReasoningPanelProps) {
+  const [showTrace, setShowTrace] = useState(false)
+  const [showDismissPrompt, setShowDismissPrompt] = useState(false)
+  const [showActionPrompt, setShowActionPrompt] = useState(false)
+
   return (
     <div className="flex flex-col h-full overflow-hidden bg-[#0A0A0A]">
       {/* Alert header */}
-      <div className="px-5 py-4 border-b border-white/5 bg-[#0A0A0A]">
+      <div className="px-4 py-3 border-b border-white/5 bg-[#0A0A0A]">
         <div className="flex items-center gap-2 mb-2">
           <span className={cn("text-xs font-bold px-2.5 py-1 rounded-lg border", severityColor[alert.severity])}>
             {alert.severity}
@@ -81,84 +90,100 @@ export function ReasoningPanel({ alert, onAskSandra }: ReasoningPanelProps) {
             {alert.status}
           </span>
         </div>
-        <div className="font-bold text-[#EAEAEA] text-base">{alert.entity_name}</div>
-        <div className="text-xs text-[#37b7ab] font-medium mt-0.5">{alert.source_agent}</div>
+        <div className="font-bold text-[#EAEAEA] text-[15px]">{alert.entity_name}</div>
+        <div className="text-[11px] text-[#37b7ab] font-medium mt-0.5">{alert.source_agent}</div>
       </div>
 
       {/* Scrollable reasoning body */}
-      <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-6 bg-[#0A0A0A]">
+      <div className="flex-1 overflow-y-auto p-4 bg-[#0A0A0A] sidebar-scrollbar">
+        <div className="glass-card rounded-xl overflow-hidden shadow-sm border border-[#222] divide-y divide-[#222]">
 
-        {/* What I detected */}
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-[#555555] uppercase tracking-wide mb-2">
-            <Eye size={13} className="text-[#37b7ab]" /> What I detected
+          {/* What I detected */}
+          <div className="p-4">
+            <div className="flex items-center gap-2 text-[11px] font-semibold text-[#888] uppercase tracking-wider mb-2.5">
+              <Eye size={13} className="text-[#A0A0A0]" /> What I detected
+            </div>
+            <p className="text-[13px] text-[#A1A1AA] leading-relaxed">{alert.what_detected}</p>
           </div>
-          <p className="text-sm text-[#A1A1AA] leading-relaxed">{alert.what_detected}</p>
+
+          {/* What I checked — tool trace */}
+          <div className="p-4 bg-[#111]">
+            <button 
+              onClick={() => setShowTrace(!showTrace)}
+              className="w-full flex items-center justify-between group"
+            >
+              <div className="flex items-center gap-2 text-[11px] font-semibold text-[#888] uppercase tracking-wider">
+                <Shield size={13} className="text-[#A0A0A0]" /> What I checked
+              </div>
+              {showTrace ? <ChevronUp size={14} className="text-[#666] group-hover:text-[#A0A0A0]" /> : <ChevronDown size={14} className="text-[#666] group-hover:text-[#A0A0A0]" />}
+            </button>
+            {showTrace && (
+              <div className="mt-3.5">
+                <ToolCallTrace tool_calls={alert.what_checked} />
+              </div>
+            )}
+          </div>
+
+          {/* Regulatory context */}
+          {alert.regulatory_context && (
+            <div className="p-4">
+              <div className="flex items-center gap-2 text-[11px] font-semibold text-[#888] uppercase tracking-wider mb-2.5">
+                <BookOpen size={13} className="text-[#A0A0A0]" /> Regulatory context
+              </div>
+              <p className="text-[13px] text-[#A1A1AA] leading-relaxed">
+                {alert.regulatory_context}
+              </p>
+            </div>
+          )}
+
+          {/* What I recommend */}
+          <div className="p-4 bg-[#111]">
+            <div className="flex items-center gap-2 text-[11px] font-semibold text-[#888] uppercase tracking-wider mb-2.5">
+              <Target size={13} className="text-[#A0A0A0]" /> What I recommend
+            </div>
+            <div className="text-[13px] font-bold text-[#EAEAEA]">{alert.recommendation.replace(/_/g, " ")}</div>
+          </div>
+
+          {/* Related entities */}
+          {alert.related_entities.length > 0 && (
+            <div className="p-4">
+              <div className="flex items-center gap-2 text-[11px] font-semibold text-[#888] uppercase tracking-wider mb-3">
+                <Network size={13} className="text-[#A0A0A0]" /> Related entities
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {alert.related_entities.map((entity) => (
+                  <div
+                    key={entity}
+                    className="text-[11px] font-mono text-[#A1A1AA] bg-[#1A1A1A] border border-[#333] rounded-md px-2.5 py-1"
+                  >
+                    {entity}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-
-        {/* What I checked — tool trace */}
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-[#555555] uppercase tracking-wide mb-2">
-            <Shield size={13} className="text-[#37b7ab]" /> What I checked
-          </div>
-          <ToolCallTrace tool_calls={alert.what_checked} />
-        </div>
-
-        {/* Regulatory context */}
-        {alert.regulatory_context && (
-          <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-[#555555] uppercase tracking-wide mb-2">
-              <BookOpen size={13} className="text-[#37b7ab]" /> Regulatory context
-            </div>
-            <div className="text-sm text-[#A1A1AA] bg-[#1C1C1E] border border-white/5 rounded-xl p-3 leading-relaxed">
-              {alert.regulatory_context}
-            </div>
-          </div>
-        )}
-
-        {/* What I recommend */}
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-[#555555] uppercase tracking-wide mb-2">
-            <Target size={13} className="text-[#37b7ab]" /> What I recommend
-          </div>
-          <div className="bg-[#1C1C1E] border border-white/5 rounded-xl p-3">
-            <div className="text-sm font-bold text-[#EAEAEA]">{alert.recommendation.replace(/_/g, " ")}</div>
-          </div>
-        </div>
-
-        {/* Related entities */}
-        {alert.related_entities.length > 0 && (
-          <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-[#555555] uppercase tracking-wide mb-2">
-              <Network size={13} className="text-[#37b7ab]" /> Related entities
-            </div>
-            <div className="flex flex-col gap-1.5">
-              {alert.related_entities.map((entity) => (
-                <div
-                  key={entity}
-                  className="text-xs font-mono text-[#A1A1AA] bg-[#1C1C1E] border border-white/5 rounded-lg px-3 py-2"
-                >
-                  {entity}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Action bar */}
-      <div className="px-5 py-4 border-t border-white/5 bg-[#050505]">
+      <div className="px-4 py-3 border-t border-white/5 bg-[#050505]">
         <div className="flex flex-wrap gap-2">
-          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#37b7ab]/10 border border-[#37b7ab]/20 text-[#37b7ab] text-xs font-medium hover:bg-[#37b7ab]/20 transition-colors">
+          <button 
+            onClick={() => setShowActionPrompt(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#111] border border-[#333] text-[#EAEAEA] text-xs font-medium hover:bg-[#1A1A1A] transition-colors"
+          >
             <Eye size={13} /> Acknowledge
           </button>
-          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#1C1C1E] border border-white/10 text-red-400 text-xs font-medium hover:bg-white/5 transition-colors">
+          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#111] border border-[#333] text-[#A0A0A0] text-xs font-medium hover:bg-[#1A1A1A] transition-colors">
             <TrendingUp size={13} /> Escalate
           </button>
-          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#1C1C1E] border border-white/10 text-[#A1A1AA] text-xs font-medium hover:bg-white/5 transition-colors">
+          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#111] border border-[#333] text-[#888] text-xs font-medium hover:bg-[#1A1A1A] transition-colors">
             <FolderOpen size={13} /> Open Case
           </button>
-          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#1C1C1E] border border-white/10 text-[#A1A1AA] text-xs font-medium hover:bg-white/5 transition-colors">
+          <button 
+            onClick={() => setShowDismissPrompt(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#111] border border-[#333] text-[#666] text-xs font-medium hover:bg-[#1A1A1A] transition-colors"
+          >
             <X size={13} /> Dismiss
           </button>
           <button
@@ -169,6 +194,46 @@ export function ReasoningPanel({ alert, onAskSandra }: ReasoningPanelProps) {
           </button>
         </div>
       </div>
+
+      {showDismissPrompt && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="bg-[#0A0A0A] border border-[#222] rounded-xl shadow-2xl w-full max-w-sm p-5 animate-in zoom-in-95 duration-200">
+            <h3 className="text-sm font-semibold text-[#EAEAEA] mb-2">Dismiss Alert?</h3>
+            <p className="text-xs text-[#A0A0A0] mb-5 leading-relaxed">
+              Are you sure you want to dismiss this alert? Please confirm that this alert has been attended to or verified before closing it off. It will be permanently removed from your dashboard.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button onClick={() => setShowDismissPrompt(false)} className="px-3 py-1.5 text-xs font-medium text-[#888] hover:text-[#EAEAEA] transition-colors">Cancel</button>
+              <button 
+                onClick={() => { setShowDismissPrompt(false); onDismiss?.(); }} 
+                className="px-3 py-1.5 text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20 rounded-md hover:bg-red-500/20 transition-colors"
+              >
+                Yes, Dismiss
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showActionPrompt && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="bg-[#0A0A0A] border border-[#222] rounded-xl shadow-2xl w-full max-w-sm p-5 animate-in zoom-in-95 duration-200">
+            <h3 className="text-sm font-semibold text-[#EAEAEA] mb-2">Acknowledge Alert?</h3>
+            <p className="text-xs text-[#A0A0A0] mb-5 leading-relaxed">
+              This will mark the alert as acknowledged and remove it from your active queue. Have you taken the necessary action?
+            </p>
+            <div className="flex justify-end gap-3">
+              <button onClick={() => setShowActionPrompt(false)} className="px-3 py-1.5 text-xs font-medium text-[#888] hover:text-[#EAEAEA] transition-colors">Cancel</button>
+              <button 
+                onClick={() => { setShowActionPrompt(false); onAcknowledge?.(); }} 
+                className="px-3 py-1.5 text-xs font-bold bg-[#EAEAEA] text-[#0A0A0A] rounded-md hover:bg-white transition-colors"
+              >
+                Acknowledge
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

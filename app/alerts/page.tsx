@@ -177,6 +177,16 @@ export default function AlertsPage() {
             <ReasoningPanel
               alert={filteredAlerts[selectedIndex]}
               onAskSandra={handleAskSandra}
+              onDismiss={() => {
+                const id = filteredAlerts[selectedIndex].alert_id;
+                setAlerts(prev => prev.filter(a => a.alert_id !== id));
+                setSelectedIndex(0);
+              }}
+              onAcknowledge={() => {
+                const id = filteredAlerts[selectedIndex].alert_id;
+                setAlerts(prev => prev.filter(a => a.alert_id !== id));
+                setSelectedIndex(0);
+              }}
             />
           ) : (
             <div className="flex flex-col items-center justify-center h-full text-[#555555]">

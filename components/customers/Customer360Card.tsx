@@ -40,7 +40,7 @@ export function Customer360Card({ data }: { data: Customer360Profile }) {
   return (
     <div className="w-full bg-[#141414] border border-[#222222] rounded-xl overflow-hidden shadow-2xl">
       {/* Header section */}
-      <div className="p-5 border-b border-[#222222] flex items-start gap-6 bg-gradient-to-br from-[#1C1C1E] to-[#141414]">
+      <div className="p-4 border-b border-[#222222] flex items-start gap-4 bg-gradient-to-br from-[#1C1C1E] to-[#141414]">
         
         {/* Risk Score Circle */}
         <div className="relative flex-shrink-0 w-24 h-24 flex items-center justify-center">
@@ -95,7 +95,7 @@ export function Customer360Card({ data }: { data: Customer360Profile }) {
       </div>
 
       {/* Product Grid */}
-      <div className="p-5 grid grid-cols-2 gap-3 bg-[#0A0A0A]">
+      <div className="p-4 grid grid-cols-2 gap-2.5 bg-[#0A0A0A]">
         {products.map((product) => {
           const Icon = product.icon
           const status = product.data.status
@@ -107,10 +107,10 @@ export function Customer360Card({ data }: { data: Customer360Profile }) {
               {/* Subtle hover gradient */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
-              <div className="relative flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2 text-[#EAEAEA]">
-                  <Icon size={16} className="text-[#888] group-hover:text-[#AAA] transition-colors" />
-                  <span className="text-sm font-medium">{product.label}</span>
+              <div className="relative flex items-center justify-between mb-2.5">
+                <div className="flex items-center gap-1.5 text-[#EAEAEA]">
+                  <Icon size={14} className="text-[#888] group-hover:text-[#AAA] transition-colors" />
+                  <span className="text-[13px] font-medium">{product.label}</span>
                 </div>
                 
                 <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded border text-[10px] font-bold tracking-wide ${getStatusColor(status)}`}>

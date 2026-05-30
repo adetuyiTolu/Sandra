@@ -5,20 +5,21 @@ import { RefreshCw, Menu } from "lucide-react"
 
 import { SandraBriefing } from "@/components/home/SandraBriefing"
 import { AttentionRequired } from "@/components/home/AttentionRequired"
-import { PlatformActivity } from "@/components/home/PlatformActivity"
 import { RecentActivityFeed } from "@/components/home/RecentActivityFeed"
-import { AgentStatusPanel } from "@/components/home/AgentStatusPanel"
+import { PlatformActivity } from "@/components/home/PlatformActivity"
+import { BillingSnapshot } from "@/components/home/BillingSnapshot"
 import { OperationsSnapshot } from "@/components/home/OperationsSnapshot"
 import { Customer360Snapshot } from "@/components/home/Customer360Snapshot"
-import { BillingSnapshot } from "@/components/home/BillingSnapshot"
 import { WorkflowHealth } from "@/components/home/WorkflowHealth"
+import { AgentStatusPanel } from "@/components/home/AgentStatusPanel"
+import { DashboardCustomizer, DashboardRole, WidgetId, defaultLayouts, availableWidgets } from "@/components/home/DashboardCustomizer"
 import { Skeleton } from "@/components/ui/skeleton"
 
 function DashboardSkeleton() {
   return (
     <div className="flex flex-col xl:flex-row gap-6">
       {/* Left Column Skeleton */}
-      <div className="flex-[6.5] min-w-0 flex flex-col gap-8">
+      <div className="flex-[6.5] min-w-0 flex flex-col gap-5">
         
         {/* Block 1: Briefing */}
         <div className="w-full glass-card rounded-xl p-6">
@@ -52,63 +53,10 @@ function DashboardSkeleton() {
           </div>
         </div>
 
-        {/* Block 3: Activity */}
-        <div>
-          <div className="flex justify-between mb-4">
-            <Skeleton className="h-4 w-32 bg-[#1A1A1A]" />
-            <Skeleton className="h-6 w-24 bg-[#1A1A1A] rounded-md" />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[1,2,3,4,5,6].map(i => (
-              <div key={i} className="glass-card rounded-xl p-5">
-                <Skeleton className="h-3 w-24 bg-[#222] mb-2" />
-                <div className="flex justify-between items-end mb-3">
-                  <Skeleton className="h-8 w-16 bg-[#222]" />
-                  <Skeleton className="h-4 w-12 bg-[#222] rounded" />
-                </div>
-                <Skeleton className="h-3 w-32 bg-[#222]" />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Block 4: Feed */}
-        <div>
-          <div className="flex justify-between mb-4">
-            <Skeleton className="h-4 w-32 bg-[#1A1A1A]" />
-            <Skeleton className="h-4 w-16 bg-[#1A1A1A]" />
-          </div>
-          <div className="glass-card rounded-xl p-3 space-y-4">
-            {[1,2,3,4,5,6,7,8].map(i => (
-              <div key={i} className="flex items-center gap-3">
-                <Skeleton className="h-7 w-7 rounded-full bg-[#1A1A1A]" />
-                <Skeleton className="h-4 w-full bg-[#1A1A1A]" />
-                <Skeleton className="h-4 w-24 bg-[#1A1A1A]" />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Block 9: Workflow */}
-        <div>
-          <div className="flex justify-between mb-4">
-            <Skeleton className="h-4 w-32 bg-[#1A1A1A]" />
-            <Skeleton className="h-4 w-16 bg-[#1A1A1A]" />
-          </div>
-          <div className="glass-card rounded-xl p-3 space-y-3">
-            {[1,2,3,4].map(i => (
-              <div key={i} className="flex justify-between">
-                <Skeleton className="h-4 w-32 bg-[#1A1A1A]" />
-                <Skeleton className="h-4 w-16 bg-[#1A1A1A]" />
-              </div>
-            ))}
-          </div>
-        </div>
-
       </div>
 
       {/* Right Column Skeleton */}
-      <div className="flex-[3.5] min-w-0 flex flex-col gap-8">
+      <div className="flex-[3.5] min-w-0 flex flex-col gap-5">
 
         {/* Block 8: Billing */}
         <div>
@@ -132,22 +80,7 @@ function DashboardSkeleton() {
           </div>
         </div>
         
-        {/* Block 5: Agents */}
-        <div>
-          <Skeleton className="h-4 w-32 bg-[#1A1A1A] mb-4" />
-          <div className="space-y-3">
-            {[1,2].map(i => (
-              <div key={i} className="glass-card rounded-xl p-5">
-                <Skeleton className="h-4 w-32 bg-[#222] mb-4" />
-                <Skeleton className="h-5 w-48 bg-[#222] mb-4" />
-                <div className="flex justify-between">
-                  <Skeleton className="h-4 w-24 bg-[#222]" />
-                  <Skeleton className="h-4 w-20 bg-[#222]" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Block 5: Agents removed */}
 
         {/* Block 6: Operations Snapshot */}
         <div>
@@ -169,29 +102,6 @@ function DashboardSkeleton() {
           </div>
         </div>
 
-        {/* Block 7: Customer 360 */}
-        <div>
-          <div className="flex justify-between mb-4">
-            <Skeleton className="h-4 w-32 bg-[#1A1A1A]" />
-            <Skeleton className="h-4 w-24 bg-[#1A1A1A]" />
-          </div>
-          <div className="glass-card rounded-xl">
-            <div className="grid grid-cols-3 gap-px bg-[#222] mb-1">
-              <Skeleton className="h-16 w-full bg-[#111]" />
-              <Skeleton className="h-16 w-full bg-[#111]" />
-              <Skeleton className="h-16 w-full bg-[#111]" />
-            </div>
-            <div className="p-3 space-y-3 bg-[#111]">
-              {[1,2,3,4,5].map(i => (
-                <div key={i} className="flex justify-between">
-                  <Skeleton className="h-4 w-32 bg-[#222]" />
-                  <Skeleton className="h-4 w-16 bg-[#222]" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   )
@@ -202,10 +112,27 @@ export default function HomeDashboard() {
   const [initialLoading, setInitialLoading] = useState(true)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
   const [time, setTime] = useState<Date | null>(null)
+  
+  const [role, setRole] = useState<DashboardRole>("Executive")
+  const [visibleWidgets, setVisibleWidgets] = useState<WidgetId[]>(defaultLayouts["Executive"])
+  const [isClient, setIsClient] = useState(false)
 
+  // Hydration and standard setup
   useEffect(() => {
+    setIsClient(true)
     setTime(new Date())
     const interval = setInterval(() => setTime(new Date()), 60000)
+    
+    // Load persisted layout
+    const savedRole = localStorage.getItem("sandra_role") as DashboardRole
+    const savedWidgets = localStorage.getItem("sandra_widgets")
+    if (savedRole && defaultLayouts[savedRole]) {
+      setRole(savedRole)
+    }
+    if (savedWidgets) {
+      setVisibleWidgets(JSON.parse(savedWidgets))
+    }
+    
     return () => clearInterval(interval)
   }, [])
 
@@ -219,6 +146,40 @@ export default function HomeDashboard() {
   const handleRefresh = () => {
     setRefreshTrigger(prev => prev + 1)
   }
+
+  const handleRoleChange = (newRole: DashboardRole) => {
+    setRole(newRole)
+    setVisibleWidgets(defaultLayouts[newRole])
+    localStorage.setItem("sandra_role", newRole)
+    localStorage.setItem("sandra_widgets", JSON.stringify(defaultLayouts[newRole]))
+  }
+
+  const handleWidgetToggle = (widget: WidgetId) => {
+    setVisibleWidgets(prev => {
+      const newWidgets = prev.includes(widget) 
+        ? prev.filter(w => w !== widget)
+        : [...prev, widget]
+      
+      localStorage.setItem("sandra_widgets", JSON.stringify(newWidgets))
+      return newWidgets
+    })
+  }
+
+  // Component Map for dynamic rendering
+  const WidgetComponents: Record<WidgetId, React.FC<any>> = {
+    sandra_briefing: () => <SandraBriefing refreshTrigger={refreshTrigger} />,
+    attention_required: () => <AttentionRequired />,
+    recent_activity: () => <RecentActivityFeed />,
+    customer_360: () => <Customer360Snapshot />,
+    workflow_health: () => <WorkflowHealth />,
+    billing_snapshot: () => <BillingSnapshot />,
+    platform_activity: () => <PlatformActivity />,
+    operations_snapshot: () => <OperationsSnapshot />,
+    agent_status: () => <AgentStatusPanel />
+  }
+
+  const leftColumnWidgets = availableWidgets.filter(w => w.column === "left" && visibleWidgets.includes(w.id))
+  const rightColumnWidgets = availableWidgets.filter(w => w.column === "right" && visibleWidgets.includes(w.id))
 
   const formattedDate = time?.toLocaleDateString('en-US', { 
     weekday: 'short', 
@@ -252,41 +213,62 @@ export default function HomeDashboard() {
           <div className="text-xs text-[#888] font-mono">
             {time ? formattedDate : '...'}
           </div>
+          
+          {isClient && (
+            <DashboardCustomizer 
+              currentRole={role}
+              visibleWidgets={visibleWidgets}
+              onRoleChange={handleRoleChange}
+              onWidgetToggle={handleWidgetToggle}
+            />
+          )}
+
           <button 
             onClick={handleRefresh}
             className="flex items-center gap-2 px-3 py-1.5 bg-[#141414] border border-[#222] rounded-md text-sm hover:bg-[#1A1A1A] transition-colors"
           >
             <RefreshCw size={14} className="text-[#888]" />
-            Refresh Briefing
+            Refresh
           </button>
         </div>
       </header>
 
       {/* Content */}
-      <main className="p-8 max-w-[1600px] mx-auto">
+      <main className="p-5 max-w-[1600px] mx-auto">
         {initialLoading ? (
           <DashboardSkeleton />
         ) : (
           <div className="flex flex-col xl:flex-row gap-6">
             
-            {/* Left Column (65%) */}
-            <div className="flex-[6.5] min-w-0 flex flex-col gap-0">
-              <SandraBriefing refreshTrigger={refreshTrigger} />
-              <div className="mt-8">
-                <AttentionRequired />
+            {/* Empty State */}
+            {leftColumnWidgets.length === 0 && rightColumnWidgets.length === 0 && (
+              <div className="flex-1 flex flex-col items-center justify-center min-h-[50vh] text-center border border-dashed border-[#222] rounded-xl bg-[#0A0A0A]/50">
+                <h3 className="text-[15px] font-semibold text-[#EAEAEA] mb-2">Your Dashboard is empty</h3>
+                <p className="text-sm text-[#888] max-w-[300px]">
+                  Use the <strong>Customize View</strong> dropdown in the top right to enable widgets or select a role preset.
+                </p>
               </div>
-              <PlatformActivity />
-              <RecentActivityFeed />
-              <WorkflowHealth />
-            </div>
+            )}
 
-            {/* Right Column (35%) */}
-            <div className="flex-[3.5] min-w-0 flex flex-col gap-0">
-              <BillingSnapshot />
-              <AgentStatusPanel />
-              <OperationsSnapshot />
-              <Customer360Snapshot />
-            </div>
+            {/* Left Column */}
+            {leftColumnWidgets.length > 0 && (
+              <div className="flex-[6.5] min-w-0 flex flex-col gap-5">
+                {leftColumnWidgets.map(w => {
+                  const Component = WidgetComponents[w.id]
+                  return <Component key={w.id} />
+                })}
+              </div>
+            )}
+
+            {/* Right Column */}
+            {rightColumnWidgets.length > 0 && (
+              <div className="flex-[3.5] min-w-0 flex flex-col gap-5">
+                {rightColumnWidgets.map(w => {
+                  const Component = WidgetComponents[w.id]
+                  return <Component key={w.id} />
+                })}
+              </div>
+            )}
 
           </div>
         )}

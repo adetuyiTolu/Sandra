@@ -9,9 +9,9 @@ export const attentionRequired = [
   {
     severity: "critical" as const,
     icon: "bell",
-    label: "Unacknowledged Alert",
-    value: "1 Critical",
-    description: "Coordinated fraud pattern flagged by Fraud Intelligence Agent",
+    label: "Review Required",
+    value: "1 Action Item",
+    description: "Suspicious activity detected across multiple accounts",
     action: { label: "View Alert", href: "/alerts" }
   },
   {
@@ -19,16 +19,16 @@ export const attentionRequired = [
     icon: "clock",
     label: "Operations Queue",
     value: "14 Pending",
-    description: "3 items above risk score 70 require review today",
+    description: "3 high-risk items require your review",
     action: { label: "Open Queue", href: "/operations" }
   },
   {
     severity: "medium" as const,
     icon: "shield",
-    label: "Compliance Deadline",
-    value: "18 Days",
-    description: "CBN KYC circular update affects 4 active workflows",
-    action: { label: "Ask Sandra", href: "/chat?prefill=" + encodeURIComponent("Show me which workflows need to be updated for the CBN circular") }
+    label: "Compliance Update",
+    value: "Upcoming Changes",
+    description: "Regulatory updates may affect your active workflows",
+    action: { label: "Ask Sandra", href: "/chat?prefill=" + encodeURIComponent("Show me which workflows need to be updated") }
   }
 ]
 

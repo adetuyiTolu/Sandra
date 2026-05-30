@@ -14,22 +14,13 @@ export function AttentionRequired() {
     }
   }
 
-  const getBorderColor = (severity: string) => {
-    switch (severity) {
-      case "critical": return "border-t-rose-500"
-      case "high": return "border-t-amber-500"
-      case "medium": return "border-t-yellow-500"
-      default: return "border-t-[#333]"
-    }
-  }
-
   if (attentionRequired.length === 0) {
     return (
-      <div className="mb-8">
-        <h2 className="text-sm font-semibold text-[#EAEAEA] mb-4">Attention Required</h2>
-        <div className="w-full rounded-xl border border-[#222] border-t-2 border-t-emerald-500 bg-[#111] p-5">
+      <div className="mb-5">
+        <h2 className="text-[13px] font-semibold text-[#EAEAEA] mb-3">Attention Required</h2>
+        <div className="w-full rounded-xl border border-[#222] bg-[#111] p-4">
           <div className="flex items-center gap-3 mb-2">
-            <CheckCircle2 size={18} className="text-emerald-500" />
+            <CheckCircle2 size={18} className="text-[#888]" />
             <h3 className="font-bold text-[#EAEAEA]">All Clear</h3>
           </div>
           <p className="text-sm text-[#888] mb-4">No critical items require your attention right now</p>
@@ -43,22 +34,22 @@ export function AttentionRequired() {
   }
 
   return (
-    <div className="mb-8">
-      <h2 className="text-sm font-semibold text-[#EAEAEA] mb-4">Attention Required</h2>
+    <div className="mb-5">
+      <h2 className="text-[13px] font-semibold text-[#EAEAEA] mb-3">Attention Required</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {attentionRequired.map((item, i) => (
           <div 
             key={i} 
-            className={`glass-card rounded-xl border-t-2 ${getBorderColor(item.severity)} p-5 flex flex-col hover:-translate-y-1 transition-all duration-300 shadow-premium`}
+            className="glass-card rounded-xl border border-[#222] p-5 flex flex-col hover:-translate-y-1 transition-all duration-300 shadow-premium bg-[#111]"
           >
             <div className="flex items-center gap-2 mb-3">
               {getIcon(item.icon)}
               <span className="text-xs font-semibold text-[#A0A0A0] uppercase tracking-wider">{item.label}</span>
             </div>
             
-            <div className="text-xl font-bold text-[#EAEAEA] mb-2">{item.value}</div>
+            <div className="text-lg font-bold text-[#EAEAEA] mb-1.5">{item.value}</div>
             
-            <p className="text-xs text-[#888] leading-relaxed mb-5 flex-1">
+            <p className="text-[11px] text-[#888] leading-relaxed mb-4 flex-1">
               {item.description}
             </p>
             

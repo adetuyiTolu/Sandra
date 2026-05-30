@@ -52,13 +52,7 @@ export function WorkflowHealth() {
                   {workflow.steps} steps · {workflow.completions.toLocaleString()} completions
                 </div>
               </div>
-              <div className={`shrink-0 px-2 py-0.5 rounded text-[10px] font-bold border ${
-                (workflow.status as string) === "Needs Review" 
-                  ? "bg-amber-500/10 text-amber-400 border-amber-500/20" 
-                  : (workflow.status as string) === "Paused"
-                    ? "bg-[#1A1A1A] text-[#888] border-[#333]"
-                    : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-              }`}>
+              <div className="shrink-0 px-2.5 py-1 rounded-md text-[10px] font-semibold border bg-[#1A1A1A] text-[#888] border-[#333]">
                 {workflow.status}
               </div>
             </button>
@@ -68,9 +62,9 @@ export function WorkflowHealth() {
         {hasNeedsReview && (
           <div className="bg-[#111] p-3 border-t border-[#222]">
             <p className="text-[11px] text-[#888]">
-              1 workflow may be affected by upcoming CBN regulatory changes.{" "}
+              1 workflow requires your attention.{" "}
               <Link 
-                href={`/chat?prefill=${encodeURIComponent("Which of my active workflows are affected by upcoming CBN changes?")}`}
+                href={`/chat?prefill=${encodeURIComponent("Which of my active workflows require attention?")}`}
                 className="text-[#37b7ab] hover:text-[#2da096] font-medium"
               >
                 Ask Sandra

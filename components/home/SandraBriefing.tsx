@@ -22,8 +22,8 @@ export function SandraBriefing({ refreshTrigger }: { refreshTrigger: number }) {
       {/* Left Teal Border Accent */}
       <div className="absolute top-0 left-0 bottom-0 w-1 bg-[#37b7ab]" />
 
-      <div className="p-6 pl-7">
-        <div className="flex items-center justify-between mb-4">
+      <div className="p-5 pl-6">
+        <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <Circle size={8} className="fill-[#37b7ab] text-[#37b7ab] animate-pulse" />
             <span className="text-[11px] font-bold text-[#888] tracking-widest uppercase">
@@ -49,7 +49,7 @@ export function SandraBriefing({ refreshTrigger }: { refreshTrigger: number }) {
             <Skeleton className="h-4 w-[80%] bg-[#1A1A1A]" />
           </div>
         ) : (
-          <p className="text-[15px] leading-relaxed text-[#D1D1D1] mb-6">
+          <p className="text-[13px] leading-relaxed text-[#D1D1D1] mb-5">
             {sandraBriefing.text}
           </p>
         )}

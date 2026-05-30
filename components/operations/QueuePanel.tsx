@@ -45,10 +45,10 @@ const queues: QueueDef[] = [
 ]
 
 const urgencyDot: Record<string, string> = {
-  critical: "bg-[#DC2626]",
-  high: "bg-[#D97706]",
-  medium: "bg-[#D97706]",
-  low: "bg-[#059669]",
+  critical: "bg-[#EAEAEA]",
+  high: "bg-[#A0A0A0]",
+  medium: "bg-[#888]",
+  low: "bg-[#555]",
 }
 
 interface QueuePanelProps {
@@ -62,15 +62,15 @@ export function QueuePanel({ selectedQueue, onSelectQueue }: QueuePanelProps) {
       <div className="px-4 mb-2 md:mb-3 hidden md:block">
         <div className="text-[10px] font-semibold text-[#555555] uppercase tracking-widest">Work Queues</div>
       </div>
-      <div className="flex flex-row md:flex-col gap-1.5 px-2 overflow-x-auto sidebar-scrollbar pb-2 md:pb-0">
+      <div className="flex flex-row md:flex-col gap-1 px-2 overflow-x-auto sidebar-scrollbar pb-2 md:pb-0">
         {queues.map((q) => (
           <button
             key={q.id}
             onClick={() => onSelectQueue(q.id)}
             className={cn(
-              "flex flex-col gap-1.5 px-3 py-2.5 rounded-xl text-left transition-all shrink-0 md:w-full w-[150px]",
+              "flex flex-col gap-1.5 px-3 py-2 rounded-xl text-left transition-all shrink-0 md:w-full w-[150px]",
               selectedQueue === q.id
-                ? "glass-panel border border-[#37b7ab]/30 shadow-premium"
+                ? "glass-panel border border-[#37b7ab]/30 shadow-sm"
                 : "hover:glass-panel border border-transparent"
             )}
           >
@@ -81,9 +81,9 @@ export function QueuePanel({ selectedQueue, onSelectQueue }: QueuePanelProps) {
               </span>
               <span className={cn(
                 "text-[11px] font-bold px-1.5 py-0.5 rounded-full border border-white/10",
-                q.urgency === "critical" ? "bg-red-500/20 text-[#DC2626] border-red-500/20" :
-                q.urgency === "high" ? "bg-amber-500/20 text-[#D97706] border-amber-500/20" :
-                "bg-white/5 text-[#888888]"
+                q.urgency === "critical" ? "bg-[#1A1A1A] text-[#EAEAEA] border-[#333]" :
+                q.urgency === "high" ? "bg-[#111] text-[#A0A0A0] border-[#222]" :
+                "bg-[#111] text-[#888888] border-[#222]"
               )}>
                 {q.count}
               </span>

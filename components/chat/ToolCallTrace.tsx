@@ -117,19 +117,8 @@ export function ToolCallTrace({ tool_calls, agent_used, intent }: ToolCallTraceP
                 </button>
                 {isOpen && (
                   <div className="px-4 pb-3 bg-[#050505] pt-2 border-t border-white/5">
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <div className="text-[10px] font-semibold text-[#555555] uppercase tracking-wide mb-1">Inputs</div>
-                        <pre className="tool-mono text-[#A1A1AA] bg-[#121212] border border-white/5 rounded-lg p-2 text-[11px] overflow-x-auto whitespace-pre-wrap">
-                          {JSON.stringify(call.inputs, null, 2)}
-                        </pre>
-                      </div>
-                      <div>
-                        <div className="text-[10px] font-semibold text-[#555555] uppercase tracking-wide mb-1">Output</div>
-                        <div className="tool-mono text-[#A1A1AA] bg-[#121212] border border-white/5 rounded-lg p-2 text-[11px]">
-                          {call.output_summary}
-                        </div>
-                      </div>
+                    <div className="text-[11px] text-[#A1A1AA] leading-relaxed">
+                      {call.output_summary}
                     </div>
                   </div>
                 )}

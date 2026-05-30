@@ -39,9 +39,9 @@ function timeAgo(dateStr: string): string {
 }
 
 function riskColor(score: number): string {
-  if (score < 40) return "text-emerald-400 border border-emerald-500/20 bg-emerald-500/10"
-  if (score <= 70) return "text-amber-400 border border-amber-500/20 bg-amber-500/10"
-  return "text-red-400 border border-red-500/20 bg-red-500/10"
+  if (score < 40) return "text-[#666] border border-[#222] bg-[#111]"
+  if (score <= 70) return "text-[#888] border border-[#222] bg-[#111]"
+  return "text-[#EAEAEA] border border-[#333] bg-[#1A1A1A]"
 }
 
 interface ItemCardProps {
@@ -55,25 +55,25 @@ export function ItemCard({ item, isSelected, onSelect }: ItemCardProps) {
     <button
       onClick={onSelect}
       className={cn(
-        "w-full text-left p-4 border-b border-white/5 transition-colors relative",
+        "w-full text-left p-3 border-b border-white/5 transition-colors relative",
         isSelected 
-          ? "bg-[#1C1C1E] border-l-[3px] border-l-[#37b7ab] z-10" 
+          ? "bg-[#1C1C1E] border-l-[3px] border-l-[#37b7ab] shadow-sm z-10" 
           : "bg-transparent hover:bg-white/5 border-l-[3px] border-l-transparent"
       )}
       id={`item-card-${item.request_id}`}
     >
-      <div className="flex items-center justify-between gap-2 mb-1">
-        <div className="font-semibold text-[#EAEAEA] text-sm truncate">{item.full_name}</div>
-        <span className={cn("text-base font-bold px-2 py-0.5 rounded-lg shrink-0", riskColor(item.risk_score))}>
+      <div className="flex items-center justify-between gap-2 mb-0.5">
+        <div className="font-semibold text-[#EAEAEA] text-[13px] truncate">{item.full_name}</div>
+        <span className={cn("text-sm font-bold px-1.5 py-0.5 rounded-lg shrink-0", riskColor(item.risk_score))}>
           {item.risk_score}
         </span>
       </div>
-      <div className="flex items-center gap-2 mt-1">
-        <span className="text-[11px] font-mono text-[#555555]">{item.request_id}</span>
+      <div className="flex items-center gap-1.5 mt-1">
+        <span className="text-[11px] font-mono text-[#555555] truncate max-w-[80px]">{item.request_id}</span>
         <span className="text-[11px] text-[#555555]">·</span>
-        <span className="text-[11px] text-[#555555]">{timeAgo(item.submitted_at)}</span>
+        <span className="text-[11px] text-[#555555] shrink-0">{timeAgo(item.submitted_at)}</span>
         <span className="text-[11px] text-[#555555]">·</span>
-        <span className="text-[11px] text-[#888888]">{item.jurisdiction}</span>
+        <span className="text-[11px] text-[#888888] truncate">{item.jurisdiction}</span>
       </div>
       <div className="flex items-center justify-between gap-2 mt-2">
         <AISummaryBadge recommendation={item.ai_recommendation} />

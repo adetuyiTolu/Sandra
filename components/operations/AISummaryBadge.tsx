@@ -24,10 +24,10 @@ const labels: Record<Recommendation, string> = {
 }
 
 const colors: Record<Recommendation, string> = {
-  APPROVE: "text-emerald-400 border border-emerald-500/20 bg-emerald-500/10",
-  MANUAL_REVIEW: "text-amber-400 border border-amber-500/20 bg-amber-500/10",
-  ESCALATE: "text-red-400 border border-red-500/20 bg-red-500/10",
-  REJECT: "text-red-400 font-bold border border-red-500/20 bg-red-500/20",
+  APPROVE: "text-[#EAEAEA] border border-[#333] bg-[#1A1A1A]",
+  MANUAL_REVIEW: "text-[#A0A0A0] border border-[#222] bg-[#111]",
+  ESCALATE: "text-[#888] border border-[#222] bg-[#111]",
+  REJECT: "text-[#666] font-bold border border-[#222] bg-[#0A0A0A]",
 }
 
 interface AISummaryBadgeProps {

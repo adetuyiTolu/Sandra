@@ -27,10 +27,10 @@ import type { FraudAlert, AlertSeverity, AlertType } from "@/lib/types"
 import { cn } from "@/lib/utils"
 
 const severityStyles: Record<AlertSeverity, string> = {
-  CRITICAL: "text-red-400 border-red-500/20 bg-red-500/10",
-  HIGH: "text-amber-400 border-amber-500/20 bg-amber-500/10",
-  MEDIUM: "text-amber-400 border-amber-500/20 bg-amber-500/10",
-  LOW: "text-emerald-400 border-emerald-500/20 bg-emerald-500/10",
+  CRITICAL: "text-[#EAEAEA] border-[#333] bg-[#1A1A1A]",
+  HIGH: "text-[#A0A0A0] border-[#222] bg-[#111]",
+  MEDIUM: "text-[#888] border-[#222] bg-[#111]",
+  LOW: "text-[#666] border-[#222] bg-[#111]",
 }
 
 const typeStyles: Record<AlertType, string> = {
@@ -42,10 +42,10 @@ const typeStyles: Record<AlertType, string> = {
 }
 
 const statusStyles: Record<string, string> = {
-  NEW: "bg-[#37b7ab]/10 text-[#37b7ab] border border-[#37b7ab]/20",
+  NEW: "bg-[#111] text-[#EAEAEA] border border-[#333]",
   ACKNOWLEDGED: "bg-white/5 text-[#555555]",
-  ESCALATED: "bg-red-500/10 text-red-400",
-  RESOLVED: "bg-emerald-500/10 text-emerald-400",
+  ESCALATED: "bg-white/5 text-[#EAEAEA]",
+  RESOLVED: "bg-white/5 text-[#555555]",
 }
 
 function timeAgo(dateStr: string): string {
@@ -70,7 +70,7 @@ export function AlertCard({ alert, isSelected, isNew = false, onSelect }: AlertC
     <button
       onClick={onSelect}
       className={cn(
-        "w-full text-left p-4 border-b border-white/5 transition-colors relative",
+        "w-full text-left p-3 border-b border-white/5 transition-colors relative",
         isNew && "slide-in",
         isSelected 
           ? "glass-panel border-l-[3px] border-l-[#37b7ab] shadow-premium z-10" 
@@ -92,20 +92,20 @@ export function AlertCard({ alert, isSelected, isNew = false, onSelect }: AlertC
       </div>
 
       {/* Entity */}
-      <div className="font-semibold text-[#EAEAEA] text-sm mb-1 truncate">{alert.entity_name}</div>
+      <div className="font-semibold text-[#EAEAEA] text-[13px] mb-0.5 truncate">{alert.entity_name}</div>
 
       {/* Description */}
       <p className="text-xs text-[#888888] leading-relaxed line-clamp-2 mb-2">{alert.description}</p>
 
       {/* Footer */}
       <div className="flex items-center gap-2 text-[11px] text-[#555555]">
-        <span className="text-[#37b7ab] font-medium">{alert.source_agent}</span>
+        <span className="text-[#37b7ab] font-medium truncate max-w-[100px]">{alert.source_agent}</span>
         <span>·</span>
-        <span>{timeAgo(alert.created_at)}</span>
+        <span className="shrink-0">{timeAgo(alert.created_at)}</span>
         {alert.fraud_agent_confidence && (
           <>
             <span>·</span>
-            <span className="font-mono">{Math.round(alert.fraud_agent_confidence * 100)}% confidence</span>
+            <span className="font-mono shrink-0">{Math.round(alert.fraud_agent_confidence * 100)}%</span>
           </>
         )}
       </div>

@@ -9,13 +9,13 @@ export function Customer360Snapshot() {
   
   if (customer360Snapshot.totalEnrolled === 0) {
     return (
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-[#EAEAEA]">Customer 360</h2>
-        </div>
-        <div className="rounded-xl border border-[#222] bg-[#111] p-5 text-center">
-          <p className="text-sm text-[#888]">No customers enrolled yet. Customers appear here once they complete a verification flow.</p>
-        </div>
+    <div className="mb-5">
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-[13px] font-semibold text-[#EAEAEA]">Customer 360</h2>
+      </div>
+      <div className="rounded-xl border border-[#222] bg-[#111] p-4 text-center">
+        <p className="text-[13px] text-[#888]">No customers enrolled yet. Customers appear here once they complete a verification flow.</p>
+      </div>
       </div>
     )
   }
@@ -27,10 +27,10 @@ export function Customer360Snapshot() {
   }
 
   return (
-    <div className="mb-8">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-[#EAEAEA]">Customer 360</h2>
-        <Link 
+  <div className="mb-5">
+    <div className="flex items-center justify-between mb-3">
+      <h2 className="text-[13px] font-semibold text-[#EAEAEA]">Customer 360</h2>
+      <Link 
           href="/customer-360"
           className="text-xs font-medium text-[#37b7ab] hover:text-[#2da096] transition-colors"
         >
@@ -38,35 +38,35 @@ export function Customer360Snapshot() {
         </Link>
       </div>
 
-      <div className="glass-card rounded-xl overflow-hidden hover:-translate-y-1 transition-all duration-300 shadow-premium">
-        {/* Stats Row */}
-        <div className="grid grid-cols-3 gap-px bg-[#222] border-b border-[#222]">
-          <div className="bg-[#111] p-4 text-center">
+  <div className="glass-card rounded-xl overflow-hidden hover:-translate-y-1 transition-all duration-300 shadow-sm">
+    {/* Stats Row */}
+    <div className="grid grid-cols-3 gap-px bg-[#222] border-b border-[#222]">
+      <div className="bg-[#111] p-3 text-center">
             <div className="text-[10px] font-semibold text-[#888] uppercase tracking-wider mb-1">Total Enrolled</div>
             <div className="text-lg font-bold text-[#EAEAEA]">{customer360Snapshot.totalEnrolled.toLocaleString()}</div>
           </div>
-          <div className="bg-[#111] p-4 text-center">
-            <div className="text-[10px] font-semibold text-[#888] uppercase tracking-wider mb-1">Avg Risk Score</div>
+      <div className="bg-[#111] p-3 text-center">
+        <div className="text-[10px] font-semibold text-[#888] uppercase tracking-wider mb-1">Avg Risk Score</div>
             <div className="text-lg font-bold text-[#EAEAEA] flex items-center justify-center gap-1.5">
               <span className={`w-2 h-2 rounded-full ${customer360Snapshot.avgRiskScore < 40 ? "bg-emerald-400" : customer360Snapshot.avgRiskScore <= 70 ? "bg-amber-400" : "bg-rose-400"}`} />
               {customer360Snapshot.avgRiskScore}
             </div>
           </div>
-          <div className="bg-[#111] p-4 text-center">
-            <div className="text-[10px] font-semibold text-[#888] uppercase tracking-wider mb-1">New This Week</div>
+      <div className="bg-[#111] p-3 text-center">
+        <div className="text-[10px] font-semibold text-[#888] uppercase tracking-wider mb-1">New This Week</div>
             <div className="text-lg font-bold text-emerald-400">+{customer360Snapshot.newThisWeek}</div>
           </div>
         </div>
 
         {/* List */}
-        <div className="divide-y divide-[#222] bg-[#111]">
-          {customer360Snapshot.recentProfiles.map((profile) => (
-            <button
-              key={profile.id}
-              onClick={() => router.push(`/customer-360/${profile.id}`)}
-              className="w-full flex items-center justify-between p-3 hover:bg-white/[0.02] transition-colors text-left"
-            >
-              <div className="min-w-0 pr-4 flex-1">
+      <div className="divide-y divide-[#222] bg-[#111]">
+        {customer360Snapshot.recentProfiles.map((profile) => (
+          <button
+            key={profile.id}
+            onClick={() => router.push(`/customer-360/${profile.id}`)}
+            className="w-full flex items-center justify-between py-2 px-3 hover:bg-white/[0.02] transition-colors text-left"
+          >
+            <div className="min-w-0 pr-4 flex-1">
                 <div className="text-[13px] font-semibold text-[#EAEAEA] truncate">
                   {profile.name}
                 </div>
