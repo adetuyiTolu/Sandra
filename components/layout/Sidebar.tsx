@@ -13,6 +13,7 @@ import {
   FileText,
   LayoutGrid,
   MessageSquare,
+  LogOut,
   Network,
   Settings,
   ShieldCheck,
@@ -215,13 +216,13 @@ export function Sidebar() {
           key={item.href || item.label}
           onClick={() => item.href && router.push(item.href)}
           className={cn(
-            "flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs transition-colors w-full text-left",
+            "flex items-center gap-2.5 px-2.5 py-2 rounded-md text-sm transition-colors w-full text-left",
             active
               ? "glass-panel shadow-premium text-white border border-white/5"
               : "hover:bg-white/5 text-[#a3a3a3] hover:text-white"
           )}
         >
-          <Icon size={14} className={active ? "text-[#37b7ab]" : "text-[#777]"} />
+          <Icon size={16} className={active ? "text-[#37b7ab]" : "text-[#777]"} />
           <span className="font-medium">{item.label}</span>
           {item.badge && (
             <span className="ml-auto text-[10px] font-bold bg-[#37b7ab] text-white rounded-full px-1.5 py-0.5 leading-none">
@@ -270,14 +271,14 @@ export function Sidebar() {
           <button
             onClick={() => toggleCategory(item.label)}
             className={cn(
-              "flex items-center gap-2.5 px-2.5 py-1.5 rounded-md w-full text-left transition-colors",
+              "flex items-center gap-2.5 px-2.5 py-2 rounded-md w-full text-left transition-colors",
               depth === 0 ? "text-[#a3a3a3] hover:text-white hover:bg-white/5" : "text-[#858585] hover:text-[#dcdcdc] hover:bg-white/5"
             )}
           >
-            {Icon && depth === 0 && <Icon size={14} className={isOpen ? "text-[#37b7ab]" : "text-[#777]"} />}
+            {Icon && depth === 0 && <Icon size={16} className={isOpen ? "text-[#37b7ab]" : "text-[#777]"} />}
             <span className={cn(
               "flex-1", 
-              depth === 0 ? "text-xs font-medium" : "text-[11px] font-mono"
+              depth === 0 ? "text-sm font-medium" : "text-[11px] font-mono"
             )}>{item.label}</span>
             {isOpen ? <ChevronDown size={12} className="text-[#777]" /> : <ChevronRight size={12} className="text-[#777]" />}
           </button>
@@ -363,12 +364,12 @@ export function Sidebar() {
 
       <div className="px-3 py-3 border-t border-white/5 flex flex-col gap-1">
         <button className="flex items-center gap-2.5 px-2.5 py-2 text-[#a3a3a3] hover:text-white hover:bg-white/5 rounded-md transition-colors w-full text-sm">
-          <Settings size={15} className="text-[#858585]" />
+          <Settings size={16} className="text-[#858585]" />
           <span>Settings</span>
         </button>
-        <button className="flex items-center gap-2.5 px-2.5 py-2 text-[#a3a3a3] hover:text-white hover:bg-white/5 rounded-md transition-colors w-full text-sm">
-          <div className="w-[15px]" />
-          <span>Logout</span>
+        <button className="flex items-center gap-2.5 px-2.5 py-2 text-[#a3a3a3] hover:text-red-400 hover:bg-red-400/10 rounded-md transition-colors w-full text-sm group">
+          <LogOut size={16} className="text-red-400/60 group-hover:text-red-400 transition-colors" />
+          <span className="group-hover:text-red-400 transition-colors">Logout</span>
         </button>
       </div>
     </aside>
