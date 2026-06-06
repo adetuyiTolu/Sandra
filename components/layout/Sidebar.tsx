@@ -91,7 +91,7 @@ const navSections: NavSection[] = [
         ]
       },
       {
-        label: "Reports & Finance",
+        label: "Reports and Billing",
         icon: DollarSign,
         collapsible: true,
         children: [
@@ -224,7 +224,7 @@ export function Sidebar() {
           )}
         >
           <Icon size={16} className={active ? "text-[#37b7ab]" : "text-[#777]"} />
-          <span className="font-medium">{item.label}</span>
+          <span className="font-normal">{item.label}</span>
           {item.badge && (
             <span className="ml-auto text-[10px] font-bold bg-[#37b7ab] text-white rounded-full px-1.5 py-0.5 leading-none">
               {item.badge}
@@ -279,9 +279,9 @@ export function Sidebar() {
             {Icon && depth === 0 && <Icon size={16} className={isOpen ? "text-[#37b7ab]" : "text-[#777]"} />}
             <span className={cn(
               "flex-1", 
-              depth === 0 ? "text-sm font-medium" : "text-[11px] font-mono"
+              depth === 0 ? "text-sm font-normal" : "text-[12px] font-mono"
             )}>{item.label}</span>
-            {isOpen ? <ChevronDown size={12} className="text-[#777]" /> : <ChevronRight size={12} className="text-[#777]" />}
+            {isOpen ? <ChevronDown size={14} className="text-[#777]" /> : <ChevronRight size={14} className="text-[#777]" />}
           </button>
           {isOpen && item.children && (
             <div className={cn("my-1 flex flex-col gap-0.5", depth === 0 ? "ml-7" : "ml-2")}>
@@ -377,7 +377,7 @@ export function Sidebar() {
         >
           <div className="flex items-center gap-2.5">
             <Cpu size={16} className={sandraEnabled ? "text-[#37b7ab]" : "text-[#858585]"} />
-            <span>Sandra AI Enabled</span>
+            <span className="font-normal">Sandra AI Enabled</span>
           </div>
           <div className={cn("w-8 h-4 rounded-full flex items-center p-0.5 transition-colors shrink-0", sandraEnabled ? "bg-[#37b7ab]" : "bg-[#333]")}>
             <div className={cn("w-3 h-3 bg-white rounded-full transition-transform shadow-sm", sandraEnabled ? "translate-x-4" : "translate-x-0")} />
@@ -385,11 +385,11 @@ export function Sidebar() {
         </button>
         <button className="flex items-center gap-2.5 px-2.5 py-2 text-[#a3a3a3] hover:text-white hover:bg-white/5 rounded-md transition-colors w-full text-sm">
           <Settings size={16} className="text-[#858585]" />
-          <span>Settings</span>
+          <span className="font-normal">Settings</span>
         </button>
         <button className="flex items-center gap-2.5 px-2.5 py-2 text-[#a3a3a3] hover:text-red-400 hover:bg-red-400/10 rounded-md transition-colors w-full text-sm group">
           <LogOut size={16} className="text-red-400/60 group-hover:text-red-400 transition-colors" />
-          <span className="group-hover:text-red-400 transition-colors">Logout</span>
+          <span className="group-hover:text-red-400 transition-colors font-normal">Logout</span>
         </button>
       </div>
     </aside>
