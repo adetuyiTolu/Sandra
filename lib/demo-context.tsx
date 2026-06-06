@@ -84,6 +84,8 @@ interface DemoModeContextValue {
   deactivateDemo: () => void
   setStep: (step: number) => void
   currentStepData: DemoStep | null
+  isSandraEnabled: boolean
+  toggleSandra: () => void
 }
 
 const DemoModeContext = createContext<DemoModeContextValue | null>(null)
@@ -91,6 +93,9 @@ const DemoModeContext = createContext<DemoModeContextValue | null>(null)
 export function DemoModeProvider({ children }: { children: React.ReactNode }) {
   const [isActive, setIsActive] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
+  const [isSandraEnabled, setIsSandraEnabled] = useState(true)
+
+  const toggleSandra = useCallback(() => setIsSandraEnabled(prev => !prev), [])
 
   const activateDemo = useCallback(() => {
     setIsActive(true)
@@ -109,7 +114,7 @@ export function DemoModeProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <DemoModeContext.Provider
-      value={{ isActive, currentStep, steps: demoSteps, activateDemo, deactivateDemo, setStep, currentStepData }}
+      value={{ isActive, currentStep, steps: demoSteps, activateDemo, deactivateDemo, setStep, currentStepData, isSandraEnabled, toggleSandra }}
     >
       {children}
     </DemoModeContext.Provider>

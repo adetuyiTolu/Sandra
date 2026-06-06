@@ -23,7 +23,7 @@
 
 import { useDemoMode } from "@/lib/demo-context"
 import { cn } from "@/lib/utils"
-import { Play, X, Menu } from "lucide-react"
+import { Play, X, Menu, Cpu } from "lucide-react"
 
 interface SandraHeaderProps {
   title: string
@@ -31,7 +31,7 @@ interface SandraHeaderProps {
 }
 
 export function SandraHeader({ title, subtitle }: SandraHeaderProps) {
-  const { isActive, activateDemo, deactivateDemo } = useDemoMode()
+  const { isActive, activateDemo, deactivateDemo, isSandraEnabled, toggleSandra } = useDemoMode()
 
   return (
     <div className="flex items-center justify-between px-5 py-3 bg-[#0A0A0A]/90 backdrop-blur border-b border-white/5">
@@ -49,27 +49,40 @@ export function SandraHeader({ title, subtitle }: SandraHeaderProps) {
         </div>
       </div>
 
-      <button
-        onClick={isActive ? deactivateDemo : activateDemo}
-        className={cn(
-          "flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all-150 border",
-          isActive
-            ? "bg-[#37b7ab]/10 text-[#37b7ab] border-[#37b7ab]/30 shadow-[0_0_10px_rgba(55,183,171,0.15)] hover:bg-[#37b7ab]/20"
-            : "bg-transparent text-[#EAEAEA] border-white/10 hover:border-white/20 hover:bg-white/5"
-        )}
-      >
-        {isActive ? (
-          <>
-            <X size={14} />
-            Exit Demo Mode
-          </>
-        ) : (
-          <>
-            <Play size={14} />
-            Demo Mode
-          </>
-        )}
-      </button>
+      <div className="flex items-center gap-3">
+        <button 
+          onClick={toggleSandra}
+          className="flex items-center gap-2 px-2.5 py-1.5 text-[#a3a3a3] hover:text-white hover:bg-white/5 rounded-md transition-colors text-xs font-medium"
+        >
+          <Cpu size={14} className={isSandraEnabled ? "text-[#37b7ab]" : "text-[#858585]"} />
+          <span className="hidden sm:inline">{isSandraEnabled ? "Sandra AI On" : "Sandra AI Off"}</span>
+          <div className={cn("ml-1 w-7 h-3.5 rounded-full flex items-center p-0.5 transition-colors shrink-0", isSandraEnabled ? "bg-[#37b7ab]" : "bg-[#333]")}>
+            <div className={cn("w-2.5 h-2.5 bg-white rounded-full transition-transform shadow-sm", isSandraEnabled ? "translate-x-3.5" : "translate-x-0")} />
+          </div>
+        </button>
+
+        <button
+          onClick={isActive ? deactivateDemo : activateDemo}
+          className={cn(
+            "flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all-150 border",
+            isActive
+              ? "bg-[#37b7ab]/10 text-[#37b7ab] border-[#37b7ab]/30 shadow-[0_0_10px_rgba(55,183,171,0.15)] hover:bg-[#37b7ab]/20"
+              : "bg-transparent text-[#EAEAEA] border-white/10 hover:border-white/20 hover:bg-white/5"
+          )}
+        >
+          {isActive ? (
+            <>
+              <X size={14} />
+              Exit Demo Mode
+            </>
+          ) : (
+            <>
+              <Play size={14} />
+              Demo Mode
+            </>
+          )}
+        </button>
+      </div>
     </div>
   )
 }

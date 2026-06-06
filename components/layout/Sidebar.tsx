@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
+import { useDemoMode } from "@/lib/demo-context"
 import {
   Bell,
   Cpu,
@@ -159,7 +160,7 @@ export function Sidebar() {
   const router = useRouter()
   const [openCategories, setOpenCategories] = useState<Set<string>>(new Set())
   const [isMobileOpen, setIsMobileOpen] = useState(false)
-  const [sandraEnabled, setSandraEnabled] = useState(true)
+  const { isSandraEnabled } = useDemoMode()
 
   useEffect(() => {
     const handleToggle = () => setIsMobileOpen(prev => !prev)
@@ -350,7 +351,7 @@ export function Sidebar() {
 
       <div className="flex-1 overflow-y-auto sidebar-scrollbar px-3 py-3 flex flex-col gap-1">
         {navSections
-          .filter(section => sandraEnabled || section.title !== "SANDRA AI")
+          .filter(section => isSandraEnabled || section.title !== "SANDRA AI")
           .map((section, idx) => (
           <div key={idx} className={cn("flex flex-col gap-1", idx > 0 && section.title ? "mt-4" : "")}>
             {section.title && (
@@ -360,7 +361,7 @@ export function Sidebar() {
             )}
             <div className="flex flex-col gap-0.5">
                {section.items.map(item => {
-                 const currentItem = (!sandraEnabled && item.label === "Action Center")
+                 const currentItem = (!isSandraEnabled && item.label === "Action Center")
                    ? { ...item, label: "Case Management" }
                    : item;
                  return renderNavItem(currentItem);
@@ -371,18 +372,6 @@ export function Sidebar() {
       </div>
 
       <div className="px-3 py-3 border-t border-white/5 flex flex-col gap-1">
-        <button 
-          onClick={() => setSandraEnabled(!sandraEnabled)}
-          className="flex items-center justify-between px-2.5 py-2 text-[#a3a3a3] hover:text-white hover:bg-white/5 rounded-md transition-colors w-full text-sm mb-2"
-        >
-          <div className="flex items-center gap-2.5">
-            <Cpu size={16} className={sandraEnabled ? "text-[#37b7ab]" : "text-[#858585]"} />
-            <span className="font-normal">Sandra AI Enabled</span>
-          </div>
-          <div className={cn("w-8 h-4 rounded-full flex items-center p-0.5 transition-colors shrink-0", sandraEnabled ? "bg-[#37b7ab]" : "bg-[#333]")}>
-            <div className={cn("w-3 h-3 bg-white rounded-full transition-transform shadow-sm", sandraEnabled ? "translate-x-4" : "translate-x-0")} />
-          </div>
-        </button>
         <button className="flex items-center gap-2.5 px-2.5 py-2 text-[#a3a3a3] hover:text-white hover:bg-white/5 rounded-md transition-colors w-full text-sm">
           <Settings size={16} className="text-[#858585]" />
           <span className="font-normal">Settings</span>
