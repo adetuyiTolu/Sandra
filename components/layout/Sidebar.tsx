@@ -13,6 +13,7 @@ import {
   FileText,
   LayoutGrid,
   MessageSquare,
+  Network,
   Settings,
   ShieldCheck,
   Zap,
@@ -46,9 +47,14 @@ const navSections: NavSection[] = [
     title: "SANDRA AI",
     items: [
       { label: "Chat", href: "/chat", icon: MessageSquare },
-      { label: "Operations", href: "/operations", icon: LayoutGrid },
-      { label: "Alerts", href: "/alerts", icon: Bell, badge: "3" },
-      { label: "Customer 360", href: "/customer-360", icon: Cpu }
+      { label: "Audit Trail", href: "/audit", icon: ShieldCheck }
+    ]
+  },
+  {
+    title: "OPERATIONS",
+    items: [
+      { label: "Customer 360", href: "/customer-360", icon: Cpu },
+      { label: "Action Center", href: "/action-center", icon: Bell, badge: "3" }
     ]
   },
   {
@@ -84,21 +90,11 @@ const navSections: NavSection[] = [
         ]
       },
       {
-        label: "Case Management",
-        icon: FileText,
-        collapsible: true,
-        children: [
-          { label: "Overview", href: "/cases/overview" },
-          { label: "Cases", href: "/cases/list" },
-        ]
-      },
-      {
         label: "Reports & Finance",
         icon: DollarSign,
         collapsible: true,
         children: [
           { label: "Verification Reports", href: "/reports/verification" },
-          { label: "SDK Reports", href: "/reports/sdk" },
           { label: "Billing", href: "/finance/billing" },
         ]
       }
@@ -107,8 +103,16 @@ const navSections: NavSection[] = [
   {
     title: "CONFIGURE",
     items: [
-      { label: "Workflows", href: "/workflows", icon: Zap },
-      { label: "SDK Flow", href: "/sdk-flow", icon: FileText },
+      {
+        label: "Workflows",
+        icon: Zap,
+        collapsible: true,
+        children: [
+          { label: "Workflow Builder", href: "/workflows/builder" },
+          { label: "Templates", href: "/workflows/templates" },
+          { label: "Execution History", href: "/workflows/history" }
+        ]
+      },
       {
         label: "Fraud Rules",
         icon: ShieldCheck,
@@ -134,7 +138,16 @@ const navSections: NavSection[] = [
   {
     title: "PLATFORM",
     items: [
-      { label: "API Integrations", href: "/platform/api", icon: Command },
+      {
+        label: "Integration Hub",
+        icon: Network,
+        collapsible: true,
+        children: [
+          { label: "Core Systems", href: "/platform/hub/core" },
+          { label: "Data Providers", href: "/platform/hub/data" },
+          { label: "Third-party Services", href: "/platform/hub/services" }
+        ]
+      },
       { label: "API Status", href: "/platform/status", icon: Zap },
     ]
   }
@@ -314,7 +327,7 @@ export function Sidebar() {
       )}>
         <div className="px-3 py-4 flex items-center justify-between">
           <div className="flex items-center rounded-md px-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5813.7 1796.3" style={{ height: "22px", width: "71px" }} aria-label="Prembly">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5813.7 1796.3" style={{ height: "32px", width: "100px" }} aria-label="Prembly">
             <g><path fill="#37b7ab" d="M1132.3,606.3c-9.5-221.7-260.8-418.1-547-427.6H65.2l-20.4-24.9h-12.8v452.5c0,231.2,254.5,418.1,550.1,427.6,289.4-9.5,540.7-205.7,550.2-427.6Z"></path><path fill="#37b7ab" d="M307.8,1584.4c-111.2-6.1-208.4-132.3-211.4-274.9l3.1-261.3-7.9-8v-6.3l222.7,2.6c116.1,1.4,208.4,129.2,211.4,276.5-6.5,144.1-106.6,268-217.9,271.4Z"></path></g>
             <path fill="#37b7ab" d="M2031.8,701c24.5,47.1,36.8,102.3,36.8,165.6s-12.3,116.1-36.8,163.2c-22.9,45.3-58.4,83.2-102.1,109.1-43.5,25.7-92.9,38.6-148.3,38.5-45.1,0-84.3-8.3-117.5-24.9-31.8-15.4-59.2-38.7-79.5-67.6v322.6h-128.3v-844.8h111.6l15.5,90.2c49.1-64.9,115.2-97.4,198.3-97.4,55.4,0,104.8,12.5,148.3,37.4,43.8,25.3,79.3,62.9,102,108.1ZM1938.1,866.5c0-60.1-16.4-108.8-49.3-146-32.8-37.2-75.8-55.8-128.7-55.9-53,0-95.8,18.4-128.2,55.2-32.4,36.8-48.6,84.9-48.5,144.4,0,61,16.2,110.4,48.6,148.3s75.1,56.9,128.2,57c53,0,95.9-19,128.7-57,32.9-38,49.3-86.6,49.2-146Z"></path>
             <path fill="#37b7ab" d="M2478.1,682.8h-56.9c-53,0-91.4,17.2-115.1,51.7-23.7,34.4-35.6,78.1-35.6,131.1v305h-128.1v-607.9h113.9l14.2,91.4c16.6-27.7,39.9-50.7,67.7-67.1,27.7-16.2,64.8-24.3,111.6-24.3h28.4l-.1,120.1Z"></path>

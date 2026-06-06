@@ -5,6 +5,8 @@ import { SandraHeader } from "@/components/layout/SandraHeader"
 import { QueuePanel, type QueueId } from "@/components/operations/QueuePanel"
 import { ItemCard } from "@/components/operations/ItemCard"
 import { AISummaryBadge } from "@/components/operations/AISummaryBadge"
+import { AlertCard } from "@/components/alerts/AlertCard"
+import { ReasoningPanel } from "@/components/alerts/ReasoningPanel"
 import { useDemoMode } from "@/lib/demo-context"
 import { kycRequests, cases, fraudAlerts } from "@/lib/tools/executors"
 import type { KYCRequest, Case, FraudAlert } from "@/lib/types"
@@ -109,6 +111,12 @@ export default function OperationsPage() {
     setAskInput("")
   }
 
+  function handleFraudAskSandra() {
+    if (!selectedItem) return
+    const f = selectedItem as FraudAlert
+    dispatchSandraAsk(`Explain the alert for ${f.entity_name}`)
+  }
+
   function handleQueueChange(id: QueueId) {
     setSelectedQueue(id)
     setSelectedIndex(0)
@@ -148,6 +156,18 @@ export default function OperationsPage() {
                   />
                 )
               }
+              if (selectedQueue === "fraud") {
+                const f = item as FraudAlert
+                return (
+                  <AlertCard
+                    key={f.alert_id}
+                    alert={f}
+                    isSelected={i === selectedIndex}
+                    isNew={false}
+                    onSelect={() => setSelectedIndex(i)}
+                  />
+                )
+              }
               // Generic card for non-KYC queues
               const risk = getItemRisk(item)
               return (
@@ -179,6 +199,13 @@ export default function OperationsPage() {
             <div className="flex flex-col items-center justify-center h-full text-[#555555]">
               <div className="text-sm">Select an item from the queue</div>
             </div>
+          ) : selectedQueue === "fraud" ? (
+            <ReasoningPanel
+              alert={selectedItem as FraudAlert}
+              onAskSandra={handleFraudAskSandra}
+              onDismiss={() => {}}
+              onAcknowledge={() => {}}
+            />
           ) : (
             <div className="p-6 max-w-3xl">
               {/* Sandra's Assessment */}
