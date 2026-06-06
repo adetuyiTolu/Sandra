@@ -215,13 +215,13 @@ export function Sidebar() {
           key={item.href || item.label}
           onClick={() => item.href && router.push(item.href)}
           className={cn(
-            "flex items-center gap-2.5 px-2.5 py-2 rounded-md text-sm transition-colors w-full text-left",
+            "flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs transition-colors w-full text-left",
             active
               ? "glass-panel shadow-premium text-white border border-white/5"
-              : "hover:bg-white/5 text-[#888888] hover:text-[#EAEAEA]"
+              : "hover:bg-white/5 text-[#a3a3a3] hover:text-white"
           )}
         >
-          <Icon size={16} className={active ? "text-[#37b7ab]" : "text-[#858585]"} />
+          <Icon size={14} className={active ? "text-[#37b7ab]" : "text-[#777]"} />
           <span className="font-medium">{item.label}</span>
           {item.badge && (
             <span className="ml-auto text-[10px] font-bold bg-[#37b7ab] text-white rounded-full px-1.5 py-0.5 leading-none">
