@@ -255,7 +255,7 @@ export default function ReformTrackerPage() {
   })
 
   // Group by section
-  const sections = [...new Set(filtered.map(t => t.section))]
+  const sections = Array.from(new Set(filtered.map(t => t.section)))
 
   // Stats
   const total = tasks.length
