@@ -5,7 +5,7 @@ import { Check, ChevronDown, ChevronUp, Plus, Sparkles, X, AlertCircle, Loader2,
 import type { Task } from "@/lib/reform-store"
 
 type Filter = "all" | "Tolu" | "Marketing" | "EMT" | "Lanre" | "urgent"
-type ExtractedTask = { title: string; owner: string; urgent: boolean; deadline: string; section: string; note: string; rationale: string }
+
 
 const OWNER_STYLES: Record<string, { bg: string; text: string; border: string }> = {
   Tolu:      { bg: "bg-indigo-500/15", text: "text-indigo-300", border: "border-indigo-500/30" },
@@ -210,133 +210,7 @@ function AddTaskModal({ onClose, onAdd }: { onClose: () => void; onAdd: (t: Part
   )
 }
 
-function ExtractPanel({ tasks, onAdd }: { tasks: Task[]; onAdd: (t: Partial<Task>) => void }) {
-  const [open, setOpen] = useState(false)
-  const [text, setText] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [suggestions, setSuggestions] = useState<ExtractedTask[]>([])
-  const [added, setAdded] = useState<Set<number>>(new Set())
-  const [error, setError] = useState("")
-  const [mergeTarget, setMergeTarget] = useState<Record<number, string>>({})
 
-  const analyse = async () => {
-    if (!text.trim()) return
-    setLoading(true); setError(""); setSuggestions([]); setAdded(new Set())
-    try {
-      const res = await fetch("/api/reform-tracker/extract", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) })
-      const data = await res.json()
-      if (data.error) throw new Error(data.error)
-      setSuggestions(data.tasks || [])
-    } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Extraction failed")
-    } finally { setLoading(false) }
-  }
-
-  const addSuggestion = (i: number, s: ExtractedTask) => {
-    onAdd({ title: s.title, owner: s.owner, urgent: s.urgent, deadline: s.deadline, section: s.section, note: s.note })
-    setAdded(prev => new Set([...prev, i]))
-  }
-
-  const mergeSuggestion = async (i: number, s: ExtractedTask, taskId: string) => {
-    const target = tasks.find(t => t.id === taskId)
-    if (!target) return
-    await fetch("/api/reform-tracker", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: taskId, note: `${target.note ? target.note + "\n\n" : ""}[Update] ${s.note}` }) })
-    setAdded(prev => new Set([...prev, i]))
-  }
-
-  return (
-    <>
-      <button
-        onClick={() => setOpen(!open)}
-        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[12px] font-bold transition-all ${open ? "bg-[#818cf8] text-white" : "bg-[#818cf8]/10 text-[#818cf8] border border-[#818cf8]/30 hover:bg-[#818cf8]/20"}`}
-      >
-        <Sparkles size={14} />
-        AI Extract
-      </button>
-
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-start justify-end pt-16 pr-6 pointer-events-none">
-          <div className="pointer-events-auto w-[480px] bg-[#0E0E0E] border border-[#2A2A2A] rounded-2xl shadow-2xl flex flex-col max-h-[85vh]">
-            <div className="p-5 border-b border-[#1E1E1E] flex items-center justify-between shrink-0">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-[#818cf8]/15 flex items-center justify-center">
-                  <Sparkles size={14} className="text-[#818cf8]" />
-                </div>
-                <div>
-                  <h3 className="text-white font-bold text-[14px]">AI Task Extraction</h3>
-                  <p className="text-[#666] text-[11px]">Paste any text — meeting notes, emails, docs</p>
-                </div>
-              </div>
-              <button onClick={() => setOpen(false)} className="text-[#555] hover:text-white transition-colors"><X size={16} /></button>
-            </div>
-
-            <div className="p-4 border-b border-[#1E1E1E] shrink-0">
-              <textarea
-                value={text}
-                onChange={e => setText(e.target.value)}
-                placeholder="Paste your meeting notes, strategy doc, email thread, or any raw text here. The AI will extract actionable tasks aligned to Prembly's goals..."
-                rows={5}
-                className="w-full bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl px-3 py-2.5 text-[12px] text-[#EAEAEA] resize-none focus:outline-none focus:border-[#818cf8] placeholder-[#444] leading-relaxed"
-              />
-              <button
-                onClick={analyse}
-                disabled={loading || !text.trim()}
-                className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#818cf8] text-white text-[13px] font-bold hover:bg-[#6366f1] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-              >
-                {loading ? <><Loader2 size={14} className="animate-spin" /> Analysing...</> : <><Sparkles size={14} /> Analyse Text</>}
-              </button>
-              {error && <p className="mt-2 text-[11px] text-red-400 flex items-center gap-1"><AlertCircle size={11} />{error}</p>}
-            </div>
-
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 sidebar-scrollbar">
-              {suggestions.length === 0 && !loading && (
-                <div className="text-center py-8 text-[#555] text-[12px]">
-                  <Sparkles size={24} className="mx-auto mb-2 text-[#333]" />
-                  Extracted tasks will appear here
-                </div>
-              )}
-              {suggestions.map((s, i) => (
-                <div key={i} className={`bg-[#141414] border rounded-xl p-4 transition-all ${added.has(i) ? "border-[#37b7ab]/30 opacity-60" : "border-[#2A2A2A]"}`}>
-                  {added.has(i) && <div className="flex items-center gap-1 text-[10px] text-[#37b7ab] font-bold mb-2"><CheckCircle2 size={12} /> Added</div>}
-                  <p className="text-[13px] text-[#EAEAEA] font-medium mb-2">{s.title}</p>
-                  <div className="flex items-center gap-2 mb-2">
-                    {s.urgent && <span className="text-[10px] font-bold text-red-400 uppercase"><Zap size={9} className="inline" /> Urgent</span>}
-                    <OwnerBadge owner={s.owner} />
-                    <span className="text-[10px] text-[#666]">{s.deadline}</span>
-                  </div>
-                  <p className="text-[11px] text-[#666] italic mb-3 leading-relaxed">{s.rationale}</p>
-                  
-                  {!added.has(i) && (
-                    <div className="flex gap-2">
-                      <button onClick={() => addSuggestion(i, s)} className="flex-1 py-1.5 rounded-lg bg-[#37b7ab]/10 text-[#37b7ab] text-[11px] font-bold border border-[#37b7ab]/20 hover:bg-[#37b7ab]/20 transition-colors">
-                        + Add as new task
-                      </button>
-                      <div className="flex-1 flex gap-1">
-                        <select
-                          value={mergeTarget[i] || ""}
-                          onChange={e => setMergeTarget(prev => ({ ...prev, [i]: e.target.value }))}
-                          className="flex-1 bg-[#0A0A0A] border border-[#2A2A2A] rounded-lg px-2 py-1.5 text-[11px] text-[#888] focus:outline-none focus:border-[#818cf8] min-w-0"
-                        >
-                          <option value="">Merge into...</option>
-                          {tasks.map(t => <option key={t.id} value={t.id}>{t.title.substring(0, 40)}...</option>)}
-                        </select>
-                        {mergeTarget[i] && (
-                          <button onClick={() => mergeSuggestion(i, s, mergeTarget[i])} className="px-2 py-1.5 rounded-lg bg-[#818cf8]/10 text-[#818cf8] text-[11px] font-bold border border-[#818cf8]/20 hover:bg-[#818cf8]/20 transition-colors whitespace-nowrap">
-                            Merge
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  )
-}
 
 export default function ReformTrackerPage() {
   const [tasks, setTasks] = useState<Task[]>([])
@@ -399,7 +273,7 @@ export default function ReformTrackerPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#EAEAEA] font-sans">
+    <div className="h-screen overflow-y-auto bg-[#050505] text-[#EAEAEA] font-sans">
       {/* Header */}
       <header className="border-b border-[#1A1A1A] bg-[#080808] px-6 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
@@ -414,7 +288,7 @@ export default function ReformTrackerPage() {
             <p className="text-[12px] text-[#555] mt-0.5">Strategic task board · Every update syncs to all viewers in real time</p>
           </div>
           <div className="flex items-center gap-3">
-            <ExtractPanel tasks={tasks} onAdd={addTask} />
+
             <button
               onClick={() => setShowAdd(true)}
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#37b7ab] text-white text-[12px] font-bold hover:bg-[#2da096] transition-colors"
