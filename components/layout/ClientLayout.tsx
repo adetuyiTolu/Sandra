@@ -7,8 +7,8 @@ import { DemoMode } from "@/components/shared/DemoMode"
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   
-  // The expansion-plan presentation should take up the full screen
-  if (pathname === "/expansion-plan") {
+  // The expansion-plan presentations should take up the full screen
+  if (pathname === "/expansion-plan" || pathname === "/emerging-market-expansion-plan") {
     return <main className="flex-1 w-full h-full">{children}</main>
   }
 
