@@ -435,6 +435,26 @@
 
   .metric-box .metric-note { font-size: 1.3vh; color: var(--mid); margin-top: 0.4vh; line-height: 1.3; }
 
+  /* ---- SOURCE CITATIONS ---- */
+  .src {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.05vh;
+    letter-spacing: 0.06em;
+    color: var(--accent-deep);
+    margin-top: 0.5vh;
+  }
+  .src::before { content: "▸ "; }
+  .estimate-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1vh;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--light);
+  }
+  .source-table td { vertical-align: top; }
+  .source-table .src { display: inline; margin-top: 0; }
+
   /* ---- STRATEGIC PRODUCTS ---- */
   .product-block {
     border: none;
@@ -553,11 +573,10 @@
 <h2 class="section-title">Executive Summary</h2>
 <h3 class="sub-title">The Strategic Imperative</h3>
 </div>
-<p class="lead">Emerging markets are absorbing the fastest growing fraud losses in the world. Nigeria's financial fraud losses hit ₦52.3 billion in 2024  :  nearly triple the prior year  :  and industry wide losses jumped 603% in Q1 2025 alone. The same curve is visible in Kenya, Ghana, South Africa, and Egypt. Regulators across all five markets have now mandated real time AML monitoring. These markets are not asking for better verification. They are demanding a new category of protection entirely.</p>
-<p>Prembly sits at the exact intersection of this demand. We have built identity verification, fraud intelligence, background checks, and AML tooling into a coherent platform. What this plan proposes is a deliberate repositioning  :  not a product overhaul  :  that takes what we already have and makes it the operating system for trust across every major sector of the emerging market economies we serve.</p>
-<p>Nigeria is the anchor. It is where our regulatory depth, data coverage, and enterprise relationships are deepest, and it is the market that proves the model. But the pattern this plan describes  :  rapid digital transaction growth, thin identity infrastructure, fragmented compliance tooling, and tightening regulation  :  is not Nigerian. It is structural across emerging markets, which is what makes the same platform portable to Kenya, Ghana, South Africa, and Egypt with regulatory configuration rather than rebuild.</p>
-<p>Ten sectors carry the weight of this opportunity. Banking, ICT, Consumer Goods, and Industrial Goods control the majority of listed market value across these exchanges. Six more  :  Oil and Gas, Insurance, Healthcare, Agriculture, Utilities, and Capital Markets  :  each carry distinct fraud and compliance burdens that no single provider is currently solving at scale in any of these markets.</p>
-<p>This document maps the pain in each sector, identifies what Prembly can build or package to serve it, quantifies the addressable opportunity across the anchor market and the wider emerging market footprint, and proposes a sequenced 24 month expansion path.</p>
+<p class="lead">The case for this plan is regulatory, not a fraud panic. On 10 March 2026 the CBN issued Baseline Standards for Automated AML Solutions  :  12 standards, 100 requirements  :  giving deposit money banks 18 months and other financial institutions 24 months to run automated AML systems. Every regulated institution had to file an implementation roadmap by 10 June 2026. That is a dated, enforceable obligation across an entire banking sector, and comparable automation requirements are moving through the other markets in this plan.</p>
+<p>Fraud itself is a more complicated story than a strategy document usually admits, and this plan states it honestly. Nigerian financial sector fraud losses did reach ₦52.26 billion in 2024, up from ₦17.67 billion  :  but ₦31.1 billion of that was a single incident. In 2025 losses fell 51% to ₦25.85 billion, and reported cases have declined for five consecutive years. What is rising is severity per case: FITC recorded ₦3.3 billion of bank fraud losses in Q1 2025 against ₦468 million a year earlier, a 603% increase, while case volumes fell 33.8%. The threat is consolidating into fewer, larger, better organised attacks. That is an argument for behavioural intelligence over volume-based screening  :  not a claim that fraud is running away.</p>
+<p>Prembly sits at the intersection of both forces, with identity verification, fraud intelligence, background checks, and AML tooling already in one platform. Nigeria is the anchor: it is where our regulatory depth, data coverage, and enterprise relationships are deepest, and it is the market that proves the model. But the pattern  :  rapid digital transaction growth, thin identity infrastructure, fragmented compliance tooling, tightening regulation  :  is structural across emerging markets, which is what makes the same platform portable to Kenya, Ghana, South Africa, and Egypt with regulatory configuration rather than rebuild.</p>
+<p>This document maps the pain in each of ten sectors, identifies what Prembly can package to serve it, sizes the opportunity from published market data with our own estimates clearly marked as such, and proposes a sequenced 24 month expansion path.</p>
 <div class="positioning-block">
 <span class="block-label">Core Strategic Shift</span>
 <h2>We stop calling ourselves a KYC company. We become Trust Infrastructure Layer.</h2>
@@ -570,23 +589,23 @@
 <h2 class="section-title">Why Now</h2>
 <h3 class="sub-title">Regulatory and Market Conditions Favour a Move</h3>
 </div>
-<p class="lead">These forces have converged across emerging markets simultaneously  :  creating the largest compliance technology opportunity these economies have seen.</p>
+<p class="lead">One dated regulatory obligation, one structural shift in fraud, and one wave of transaction growth. These are the three forces the plan rests on  :  each stated with its source.</p>
 <div class="capability-grid">
 <div class="cap-item">
 <span>Regulatory Pressure</span>
-<p>Nigeria's CBN released Baseline Standards for Automated AML Solutions in March 2026, mandating real time monitoring. The Central Bank of Kenya, Bank of Ghana, South Africa's FIC, and the Central Bank of Egypt have each issued comparable automated monitoring requirements. Non compliance is now a liability, not a future risk, in every market on this list.</p>
+<p>The CBN issued Baseline Standards for Automated AML Solutions on 10 March 2026 under BOFIA 2020: 12 standards, 100 requirements, automated AML/CFT linked to KYC data and customer risk assessment. Deposit money banks have 18 months, other financial institutions 24 months. Sanctions for non compliance run to restrictions on business activity and, in serious cases, licence revocation. <span class="src">CBN CMD/DIR/PUB/CIR/001006</span></p>
 </div>
 <div class="cap-item">
-<span>FATF Pressure and Delisting</span>
-<p>Nigeria and South Africa exited the FATF grey list in 2025 after completing AML reforms. Grey listing and the threat of relisting remain live across emerging markets. Institutions now face active pressure to demonstrate proactive compliance, not just reactive box checking.</p>
+<span>FATF Delisting</span>
+<p>Nigeria and South Africa were both removed from the FATF grey list at the October 2025 plenary, after completing 19-point and 22-point action plans respectively. Delisting raises rather than lowers the bar: institutions must now demonstrate the controls that earned the exit are sustained. <span class="src">FATF October 2025 Plenary</span></p>
 </div>
 <div class="cap-item">
-<span>Fraud Escalation</span>
-<p>Nigerian banking fraud losses jumped 603% in Q1 2025, with average loss per successful attack rising to ₦44,454. Mobile money fraud in East Africa and card fraud in North Africa are on comparable trajectories. Fraudsters are organised and increasingly cross border  :  the same rings operate across multiple markets.</p>
+<span>Fraud Is Consolidating, Not Exploding</span>
+<p>Nigerian fraud losses fell 51% to ₦25.85 billion in 2025, and case volumes have declined five years running. But severity per case is climbing sharply: FITC recorded ₦3.3 billion in Q1 2025 against ₦468 million a year earlier, up 603%, while case counts fell 33.8%. Fewer, larger, better organised attacks defeat volume-based screening. <span class="src">NIBSS 2025; FITC Q1 2025</span></p>
 </div>
 <div class="cap-item">
 <span>Digital Volume Surge</span>
-<p>Four major Nigerian banks processed ₦286.19 trillion through mobile apps in 2025. M-Pesa alone moves more than half of Kenya's GDP annually. Transaction volume at this scale requires automated fraud and compliance infrastructure  :  manual processes cannot scale in any of these markets.</p>
+<p>Nigeria's tier-1 banks processed ₦286.19 trillion in mobile transactions in 2025  :  Zenith ₦104.14tn, GTCO ₦72.4tn, UBA ₦51.65tn. Transaction volume at this scale cannot be monitored manually, which is precisely what the CBN standards now require. <span class="src">Bank FY2025 disclosures</span></p>
 </div>
 <div class="cap-item">
 <span>Enterprise Demand Outside Banking</span>
@@ -599,19 +618,19 @@
 </div>
 <div class="metrics-row">
 <div class="metric-box">
-<span class="metric-label">Nigeria Banking Fraud Losses 2024</span>
-<div class="metric-value">₦52.3B</div>
-<div class="metric-note">Up from ₦17.6B in 2023 in our anchor market. Triple year on-year growth  :  the sharpest signal of a pattern repeating across emerging markets.</div>
+<span class="metric-label">Severity Per Case, Q1 2025</span>
+<div class="metric-value">+603%</div>
+<div class="metric-note">Nigerian bank fraud losses of ₦3.3bn against ₦468m a year earlier, while reported cases fell 33.8%. The core argument for behavioural intelligence. <span class="src">FITC Q1 2025 Fraud &amp; Forgeries</span></div>
 </div>
 <div class="metric-box">
-<span class="metric-label">Digital Channel Fraud Share</span>
-<div class="metric-value">70%</div>
-<div class="metric-note">CBN confirmed 70% of losses linked to digital channels. Regulators across our target markets report the same concentration.</div>
+<span class="metric-label">Nigeria Fraud Losses 2025</span>
+<div class="metric-value">₦25.85B</div>
+<div class="metric-note">Down 51% from ₦52.26bn in 2024 — a year inflated by one ₦31.1bn incident. Total losses are falling; concentration is rising. <span class="src">NIBSS 2025</span></div>
 </div>
 <div class="metric-box">
-<span class="metric-label">Africa Annual Fraud Losses</span>
-<div class="metric-value">$10B</div>
-<div class="metric-note">Continent wide annual fraud cost. Nigeria is the largest single market, but four other economies each carry losses at material scale.</div>
+<span class="metric-label">CBN Compliance Deadline</span>
+<div class="metric-value">18 mths</div>
+<div class="metric-note">Deposit money banks must run automated AML systems within 18 months of 10 March 2026; other institutions within 24. This is the forcing function. <span class="src">CBN Baseline Standards 2026</span></div>
 </div>
 </div>
 </div></div>
@@ -714,19 +733,19 @@
 </div>
 <div class="metrics-row">
 <div class="metric-box">
-<span class="metric-label">Solution Market Size (5 Markets)</span>
-<div class="metric-value">$200 to 290M</div>
-<div class="metric-note">Annual addressable spend on fraud tech and compliance automation by banks across the five anchor markets. Nigeria contributes $85 to 120M. Growing at 18% YoY as automated AML mandates scale region wide.</div>
+<span class="metric-label">Serviceable Spend (5 Markets)</span>
+<div class="metric-value">$190 to 235M</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — 40% of the five-market serviceable base derived on slide 07. Nigeria contributes $50 to 65M, consistent with tier-1 technology budgets: GTCO spent ₦88bn on technology in 2024, Access Holdings ₦193.5bn.</div>
 </div>
 <div class="metric-box">
-<span class="metric-label">Cost Savings Per Institution</span>
-<div class="metric-value">$1.3 to 5M</div>
-<div class="metric-note">Based on banks with $3 to 7M in fraud attempt exposure. Prembly's detection layer targets 70 to 85% interception. Access and GTCO blocked ₦8.16B combined through comparable technology investment.</div>
+<span class="metric-label">Fraud Intercepted, 3 Banks</span>
+<div class="metric-value">₦8.16B</div>
+<div class="metric-note">Access, GTCO and UBA reported ₦10.29bn linked to fraud incidents in 2024, of which only 20.66% became actual losses. Four banks blocked ₦14.5bn in 2025. Technology investment is already demonstrably working. <span class="src">Bank FY2024 and FY2025 annual reports</span></div>
 </div>
 <div class="metric-box">
-<span class="metric-label">Regulatory Fine Avoidance</span>
-<div class="metric-value">$350K+</div>
-<div class="metric-note">Enforcement is accelerating across every market on this list. Non compliant institutions face fines, reputational damage, and operating restrictions.</div>
+<span class="metric-label">Enforcement Exposure</span>
+<div class="metric-value">Licence</div>
+<div class="metric-note">The CBN standards provide for monetary sanctions, remedial directives, restrictions on business activity and, in serious cases, licence revocation. The downside is existential, not a line item. <span class="src">CBN Baseline Standards 2026</span></div>
 </div>
 </div>
 </div></div><div class="sector slide"><div class="sector-inner">
@@ -764,9 +783,9 @@
 </div>
 <div class="metrics-row">
 <div class="metric-box">
-<span class="metric-label">Solution Market Size (5 Markets)</span>
-<div class="metric-value">$75 to 120M</div>
-<div class="metric-note">Annual spend on identity, agent compliance, and fraud tooling across MTN, Airtel, Safaricom, Vodacom, and their partner ecosystems. Nigeria contributes $30 to 50M. Group level contracts make this the most portable sector in the plan.</div>
+<span class="metric-label">Serviceable Spend (5 Markets)</span>
+<div class="metric-value">$70 to 90M</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — 15% of the five-market serviceable base derived on slide 07. Nigeria contributes $20 to 23M. Group level contracts across MTN, Airtel, Safaricom and Vodacom make this the most portable sector in the plan.</div>
 </div>
 <div class="metric-box">
 <span class="metric-label">SIM Swap Fraud Reduction</span>
@@ -776,7 +795,7 @@
 <div class="metric-box">
 <span class="metric-label">Agent Network Fraud Prevention</span>
 <div class="metric-value">$1.5 to 5M</div>
-<div class="metric-note">Estimated annual savings from proactive agent fraud detection across MTN MoMo, Airtel Money, and M-Pesa agent networks in the anchor markets.</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — annual savings from proactive agent fraud detection across MTN MoMo, Airtel Money, and M-Pesa agent networks. Not derived from published operator disclosures.</div>
 </div>
 </div>
 </div></div><div class="sector slide"><div class="sector-inner">
@@ -813,9 +832,9 @@
 </div>
 <div class="metrics-row">
 <div class="metric-box">
-<span class="metric-label">Solution Market Size (5 Markets)</span>
-<div class="metric-value">$35 to 60M</div>
-<div class="metric-note">Annual spend on distributor verification, trade credit risk, and supply chain compliance across leading consumer goods manufacturers in the five anchor markets. Nigeria contributes $15 to 25M.</div>
+<span class="metric-label">Serviceable Spend (5 Markets)</span>
+<div class="metric-value">$33 to 41M</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — 7% of the five-market serviceable base derived on slide 07. Nigeria contributes $9 to 11M. No published market data exists for distributor verification spend at country level.</div>
 </div>
 <div class="metric-box">
 <span class="metric-label">Trade Credit Loss Reduction</span>
@@ -863,19 +882,19 @@
 </div>
 <div class="metrics-row">
 <div class="metric-box">
-<span class="metric-label">Solution Market Size (5 Markets)</span>
-<div class="metric-value">$45 to 75M</div>
-<div class="metric-note">Annual spend on vendor compliance, procurement integrity, and workforce identity across oil majors, midstream operators, and mining groups in the anchor markets. Nigeria contributes $20 to 35M.</div>
+<span class="metric-label">Serviceable Spend (5 Markets)</span>
+<div class="metric-value">$38 to 47M</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — 8% of the five-market serviceable base derived on slide 07. Nigeria contributes $10 to 12M, across oil majors, midstream operators, and mining groups.</div>
 </div>
 <div class="metric-box">
 <span class="metric-label">Procurement Fraud Savings</span>
 <div class="metric-value">$2 to 6.5M</div>
-<div class="metric-note">One midstream company suffered ₦900M in fraud over 22 months through procurement gaps. Scaled across the sector and across markets, the recoverable loss figure is substantial.</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — scaled from documented single-company procurement fraud cases. Treat as an order of magnitude, not a modelled figure.</div>
 </div>
 <div class="metric-box">
-<span class="metric-label">Shareholder Value Protected</span>
+<span class="metric-label">Shareholder Value At Risk</span>
 <div class="metric-value">Up to 42%</div>
-<div class="metric-note">A documented oil and gas fraud case caused shareholders to lose 42% of company value. Prembly's early detection layer prevents this category of loss.</div>
+<div class="metric-note"><span class="estimate-tag">Unverified</span> — carried over from the source deck and not confirmed against a named case in this review. Recommend substantiating or removing before external use.</div>
 </div>
 </div>
 </div></div><div class="sector slide"><div class="sector-inner">
@@ -910,9 +929,9 @@
 </div>
 <div class="metrics-row">
 <div class="metric-box">
-<span class="metric-label">Solution Market Size (5 Markets)</span>
-<div class="metric-value">$28 to 48M</div>
-<div class="metric-note">Annual addressable spend on procurement compliance and supply chain fraud prevention across leading industrial manufacturers in the anchor markets. Nigeria contributes $12 to 20M.</div>
+<span class="metric-label">Serviceable Spend (5 Markets)</span>
+<div class="metric-value">$28 to 35M</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — 6% of the five-market serviceable base derived on slide 07. Nigeria contributes $8 to 9M.</div>
 </div>
 <div class="metric-box">
 <span class="metric-label">Procurement Savings Per Group</span>
@@ -958,9 +977,9 @@
 </div>
 <div class="metrics-row">
 <div class="metric-box">
-<span class="metric-label">Solution Market Size (5 Markets)</span>
-<div class="metric-value">$25 to 45M</div>
-<div class="metric-note">Annual addressable spend on fraud detection and claims integrity technology across the anchor markets. Nigeria contributes $8 to 15M. South Africa's mature insurance sector makes this the market where the multiple over Nigeria is largest.</div>
+<span class="metric-label">Serviceable Spend (5 Markets)</span>
+<div class="metric-value">$33 to 41M</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — 7% of the five-market serviceable base derived on slide 07. Nigeria contributes $9 to 11M. South Africa's mature insurance sector carries the largest share of this sector, not Nigeria.</div>
 </div>
 <div class="metric-box">
 <span class="metric-label">Fraud Claims Reduction</span>
@@ -1006,14 +1025,14 @@
 </div>
 <div class="metrics-row">
 <div class="metric-box">
-<span class="metric-label">Solution Market Size (5 Markets)</span>
-<div class="metric-value">$16 to 32M</div>
-<div class="metric-note">Annual spend on supply chain verification, patient identity, and healthcare compliance technology across the anchor markets. Nigeria contributes $6 to 12M.</div>
+<span class="metric-label">Serviceable Spend (5 Markets)</span>
+<div class="metric-value">$24 to 30M</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — 5% of the five-market serviceable base derived on slide 07. Nigeria contributes $7 to 8M.</div>
 </div>
 <div class="metric-box">
-<span class="metric-label">Counterfeit Drug Losses Prevented</span>
-<div class="metric-value">$350K to 1.3M</div>
-<div class="metric-note">The WHO estimates one in ten medical products in low and middle income countries is substandard or falsified. The cost to manufacturers and distributors runs to liability, brand damage, and direct revenue loss.</div>
+<span class="metric-label">Substandard Medical Products</span>
+<div class="metric-value">1 in 10</div>
+<div class="metric-note">The WHO estimates one in ten medical products in low and middle income countries is substandard or falsified. This is the sector's structural case for authenticity infrastructure. <span class="src">WHO</span></div>
 </div>
 <div class="metric-box">
 <span class="metric-label">Health Insurer Fraud Prevention</span>
@@ -1054,14 +1073,14 @@
 </div>
 <div class="metrics-row">
 <div class="metric-box">
-<span class="metric-label">Solution Market Size (5 Markets)</span>
-<div class="metric-value">$14 to 28M</div>
-<div class="metric-note">Addressable market in farmer identity, cooperative verification, and subsidy compliance technology across agricultural programs in the anchor markets. Nigeria contributes $5 to 10M.</div>
+<span class="metric-label">Serviceable Spend (5 Markets)</span>
+<div class="metric-value">$19 to 24M</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — 4% of the five-market serviceable base derived on slide 07. Nigeria contributes $5 to 6M. Public sector budgets, so procurement cycles are long and grant funded.</div>
 </div>
 <div class="metric-box">
 <span class="metric-label">Subsidy Fraud Prevention</span>
 <div class="metric-value">$3 to 13M+</div>
-<div class="metric-note">Governments across these markets lose substantial sums to agricultural subsidy fraud annually. Verified recipient systems can recover a material share. This is the largest public sector contract opportunity in the plan.</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — governments across these markets lose substantial sums to agricultural subsidy fraud, but no audited figure is published. The widest error bar in this deck.</div>
 </div>
 <div class="metric-box">
 <span class="metric-label">Agro Credit Default Reduction</span>
@@ -1100,9 +1119,9 @@
 </div>
 <div class="metrics-row">
 <div class="metric-box">
-<span class="metric-label">Solution Market Size (5 Markets)</span>
-<div class="metric-value">$11 to 22M</div>
-<div class="metric-note">Addressable spend on customer identity, contractor verification, and anti fraud systems across electricity distribution companies in the anchor markets. Nigeria contributes $4 to 8M.</div>
+<span class="metric-label">Serviceable Spend (5 Markets)</span>
+<div class="metric-value">$14 to 18M</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — 3% of the five-market serviceable base derived on slide 07. Nigeria contributes $4 to 5M. The smallest sector in the plan and correctly sequenced last.</div>
 </div>
 <div class="metric-box">
 <span class="metric-label">Revenue Recovery Potential</span>
@@ -1148,9 +1167,9 @@
 </div>
 <div class="metrics-row">
 <div class="metric-box">
-<span class="metric-label">Solution Market Size (5 Markets)</span>
-<div class="metric-value">$14 to 26M</div>
-<div class="metric-note">Addressable spend across registrars, stockbrokers, asset managers, and listed company compliance teams on investor identity and shareholder fraud prevention. Nigeria contributes $5 to 10M.</div>
+<span class="metric-label">Serviceable Spend (5 Markets)</span>
+<div class="metric-value">$24 to 30M</div>
+<div class="metric-note"><span class="estimate-tag">Prembly estimate</span> — 5% of the five-market serviceable base derived on slide 07. Nigeria contributes $7 to 8M, across registrars, stockbrokers, asset managers, and listed company compliance teams.</div>
 </div>
 <div class="metric-box">
 <span class="metric-label">Distribution Leverage</span>
@@ -1210,7 +1229,7 @@
 <td class="mono">Q3 2026</td>
 <td>Banking · ICT</td>
 <td>Nigeria anchor</td>
-<td>Sign first 3 bank consortium members. Pilot SIM Trust with one telco. The CBN compliance deadline creates the urgency and the reference cases.</td>
+<td>Sign first 3 bank consortium members. Pilot SIM Trust with one telco. Implementation roadmaps were filed with the CBN by 10 June 2026, so every bank has already named its approach — the buying decisions land between now and the September 2027 deadline.</td>
 </tr>
 <tr>
 <td>Phase 2</td>
@@ -1241,88 +1260,157 @@
 <div class="section-header">
 <span class="section-number">07</span>
 <h2 class="section-title">Total Addressable Opportunity</h2>
-<h3 class="sub-title">Prembly's Serviceable Market Across Ten Sectors and Five Markets</h3>
+<h3 class="sub-title">Published Market Anchors, and What We Derive From Them</h3>
 </div>
-<p class="lead">Summing the solution specific addressable markets across all ten sectors, the enterprise trust infrastructure opportunity is approximately $190 to 305 million annually in Nigeria and $465 to 745 million across the five anchor markets  :  growing at 15 to 20% per year as digital transaction volumes and regulatory pressure compound in every one of them.</p>
+<p class="lead">This section starts from third party market data rather than internal assumption. Where a country level figure is published, it is cited. Where none exists  :  Kenya and Ghana  :  that is stated rather than filled in.</p>
+<table class="priority-table source-table">
+<thead>
+<tr>
+<th>Published Market</th>
+<th>Size</th>
+<th>Growth</th>
+<th>Source and Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity verification, Middle East &amp; Africa</td>
+<td class="mono">$1.17B (2025)</td>
+<td class="mono">15.2% CAGR</td>
+<td>MarketsandMarkets. To $2.38B by 2030. Includes the Middle East, so not directly comparable to our five markets.</td>
+</tr>
+<tr>
+<td>RegTech, Middle East &amp; Africa</td>
+<td class="mono">$1.02B (2025)</td>
+<td class="mono">15.3% CAGR</td>
+<td>MarknTel. To $2.76B by 2032. UAE is the largest single country at 21%; BFSI is 62% of end user demand.</td>
+</tr>
+<tr>
+<td>Digital identity solutions, South Africa</td>
+<td class="mono">$393.3M (2025)</td>
+<td class="mono">18.7% CAGR</td>
+<td>MarketsandMarkets. To $1,098.8M by 2030. The largest single country market in our footprint.</td>
+</tr>
+<tr>
+<td>Digital identity &amp; eKYC platforms, Nigeria</td>
+<td class="mono">~$230M</td>
+<td class="mono">—</td>
+<td>Ken Research. Total market including government programmes and all vendors, not an enterprise-only figure.</td>
+</tr>
+<tr>
+<td>Identity verification, Egypt</td>
+<td class="mono">$130M (2024)</td>
+<td class="mono">8.6% CAGR</td>
+<td>6Wresearch. The slowest growing of the three published markets.</td>
+</tr>
+<tr>
+<td>Kenya and Ghana</td>
+<td class="mono">Not published</td>
+<td class="mono">—</td>
+<td>No country level market sizing found for either. Estimated at $90 to 120M and $40 to 60M respectively by analogy to Egypt, adjusted for banked population and digital finance maturity.</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size:1.45vh;">A caution the board should hear: these categories are not additive. "Digital identity solutions", "identity verification", "eKYC" and "RegTech" are defined differently by each research house — one puts the entire global eKYC market at $948.8M while another puts MEA identity verification alone at $1.17B. We use them as independent sanity checks on order of magnitude, never as figures to be summed.</p>
+</div></div>
+<div class="section slide"><div class="section-content">
+<div class="section-header">
+<span class="section-number">07</span>
+<h2 class="section-title">Total Addressable Opportunity</h2>
+<h3 class="sub-title">From Published Total to Prembly's Serviceable Base</h3>
+</div>
+<p>Total identity and compliance technology market across the five anchor markets is approximately <strong>$850 to 950M</strong>, from the published figures on the previous slide plus estimates for Kenya and Ghana. Prembly cannot serve all of it: it includes government national ID programmes, biometric hardware, and enrolment services we do not sell. Applying the enterprise and BFSI weighting the same research puts at 62% of regional demand gives a serviceable base of <strong>$473 to 591M</strong>, of which Nigeria is <strong>$131 to 153M</strong>. The sector split below is our own allocation of that base.</p>
 <table class="priority-table">
 <thead>
 <tr>
 <th>Sector</th>
-<th>Nigeria (Annual)</th>
-<th>Five Markets (Annual)</th>
-<th>Savings Delivered to Client</th>
+<th>Share</th>
+<th>Nigeria</th>
+<th>Five Markets</th>
+<th>Basis</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Banking and Financial Services</td>
-<td class="mono">$85 to 120M</td>
-<td class="mono">$200 to 290M</td>
-<td>$1.3 to 5M per institution. $350K+ in regulatory fine avoidance.</td>
+<td class="mono">40%</td>
+<td class="mono">$50 to 65M</td>
+<td class="mono">$190 to 235M</td>
+<td>Cross-checked bottom up against tier-1 technology budgets: GTCO ₦88bn, Access Holdings ₦193.5bn.</td>
 </tr>
 <tr>
 <td>ICT and Telecommunications</td>
-<td class="mono">$30 to 50M</td>
-<td class="mono">$75 to 120M</td>
-<td>$1.5 to 5M in agent and mobile fraud prevention annually.</td>
-</tr>
-<tr>
-<td>Consumer Goods</td>
-<td class="mono">$15 to 25M</td>
-<td class="mono">$35 to 60M</td>
-<td>$350K to 1.3M per large FMCG group. 40 to 60% trade credit loss reduction.</td>
+<td class="mono">15%</td>
+<td class="mono">$20 to 23M</td>
+<td class="mono">$70 to 90M</td>
+<td>Four operator groups carry most of the spend, contracted at group level.</td>
 </tr>
 <tr>
 <td>Oil and Gas and Energy</td>
-<td class="mono">$20 to 35M</td>
-<td class="mono">$45 to 75M</td>
-<td>$2 to 6.5M in procurement fraud prevention. 42% shareholder value risk removed.</td>
+<td class="mono">8%</td>
+<td class="mono">$10 to 12M</td>
+<td class="mono">$38 to 47M</td>
+<td>Allocation. No published sector data.</td>
 </tr>
 <tr>
-<td>Industrial Goods</td>
-<td class="mono">$12 to 20M</td>
-<td class="mono">$28 to 48M</td>
-<td>$700K to 3.3M per group from vendor and logistics fraud elimination.</td>
+<td>Consumer Goods</td>
+<td class="mono">7%</td>
+<td class="mono">$9 to 11M</td>
+<td class="mono">$33 to 41M</td>
+<td>Allocation. No published sector data.</td>
 </tr>
 <tr>
 <td>Insurance</td>
-<td class="mono">$8 to 15M</td>
-<td class="mono">$25 to 45M</td>
-<td>$200 to 650K per insurer. 25 to 40% claims fraud reduction.</td>
+<td class="mono">7%</td>
+<td class="mono">$9 to 11M</td>
+<td class="mono">$33 to 41M</td>
+<td>Weighted to South Africa, not Nigeria.</td>
+</tr>
+<tr>
+<td>Industrial Goods</td>
+<td class="mono">6%</td>
+<td class="mono">$8 to 9M</td>
+<td class="mono">$28 to 35M</td>
+<td>Allocation. No published sector data.</td>
 </tr>
 <tr>
 <td>Healthcare and Pharma</td>
-<td class="mono">$6 to 12M</td>
-<td class="mono">$16 to 32M</td>
-<td>$350K to 1.3M in counterfeit and claims fraud prevention.</td>
-</tr>
-<tr>
-<td>Agriculture</td>
-<td class="mono">$5 to 10M</td>
-<td class="mono">$14 to 28M</td>
-<td>$3 to 13M+ in government subsidy fraud prevention.</td>
-</tr>
-<tr>
-<td>Utilities and Power</td>
-<td class="mono">$4 to 8M</td>
-<td class="mono">$11 to 22M</td>
-<td>$700K to 2.6M in revenue recovery and contractor fraud prevention.</td>
+<td class="mono">5%</td>
+<td class="mono">$7 to 8M</td>
+<td class="mono">$24 to 30M</td>
+<td>Allocation. No published sector data.</td>
 </tr>
 <tr>
 <td>Capital Markets</td>
-<td class="mono">$5 to 10M</td>
-<td class="mono">$14 to 26M</td>
-<td>$130 to 530K in shareholder fraud prevention. Access to 800+ listed company compliance teams.</td>
+<td class="mono">5%</td>
+<td class="mono">$7 to 8M</td>
+<td class="mono">$24 to 30M</td>
+<td>Allocation. Distribution leverage exceeds spend.</td>
 </tr>
 <tr>
-<td><strong>Total</strong></td>
-<td class="mono"><strong>$190 to 305M</strong></td>
-<td class="mono"><strong>$465 to 745M</strong></td>
-<td><strong>Tens of millions of dollars in annual client savings across all sectors.</strong></td>
+<td>Agriculture</td>
+<td class="mono">4%</td>
+<td class="mono">$5 to 6M</td>
+<td class="mono">$19 to 24M</td>
+<td>Public budgets. Widest error bar in the deck.</td>
+</tr>
+<tr>
+<td>Utilities and Power</td>
+<td class="mono">3%</td>
+<td class="mono">$4 to 5M</td>
+<td class="mono">$14 to 18M</td>
+<td>Allocation. Smallest sector.</td>
+</tr>
+<tr>
+<td><strong>Serviceable base</strong></td>
+<td class="mono"><strong>100%</strong></td>
+<td class="mono"><strong>$131 to 153M</strong></td>
+<td class="mono"><strong>$473 to 591M</strong></td>
+<td><strong>Derived, not summed from sector estimates.</strong></td>
 </tr>
 </tbody>
 </table>
-<p style="font-size:1.5vh;">Sizing basis: Nigeria figures are built bottom up from sector spend. The five market figures assume Nigeria represents roughly 40 to 45% of combined enterprise compliance technology spend across Nigeria, Kenya, Ghana, South Africa, and Egypt  :  a multiplier of 2.2 to 2.5x. South Africa carries a higher multiple in insurance and capital markets; Ghana a lower one across every sector.</p>
+<p style="font-size:1.45vh;">Only the first two rows have an independent cross-check. The remaining eight are an allocation of a sourced total across sectors, and should be read as a view of relative priority rather than eight separately researched market sizes.</p>
 </div></div>
 <div class="section slide"><div class="section-content centered">
 <div class="section-header">
@@ -1330,11 +1418,11 @@
 <h2 class="section-title">Total Addressable Opportunity</h2>
 <h3 class="sub-title">What Capturing This Market Means for Prembly</h3>
 </div>
-<p class="lead">Prembly does not need to capture all of this to build a very large business. Capturing 10 to 15% of the banking and ICT market in Nigeria alone, at current market conditions, represents a transformational revenue position. The other four markets are what turn a transformational position into a regional category.</p>
+<p class="lead">Prembly does not need to capture all of this to build a very large business. Banking and ICT in Nigeria alone represent $70 to 88M of serviceable spend; capturing 10 to 15% of that is a transformational revenue position against our current base. The other four markets are what turn a transformational position into a regional category.</p>
 <p>The remaining sectors represent expansion surface that becomes accessible as the Trust Graph and Consortium Network grow. The sequencing matters on both axes: anchor in Nigerian banking and ICT, use those wins as proof points in energy and consumer goods, follow the pan African groups into Kenya, Ghana, South Africa, and Egypt, then allow the data network effects to pull in the remaining sectors without requiring proportional sales effort.</p>
 <div class="positioning-block">
 <span class="block-label">The Scale of the Opportunity</span>
-<h2 style="font-size:3vh;">$465 to 745M annually across five emerging markets. Growing at 15 to 20% per year. No RegTech player in these markets is currently positioned to capture it at scale.</h2>
+<h2 style="font-size:3vh;">$473 to 591M of serviceable spend across five emerging markets, growing 15 to 19% a year on published regional CAGRs. No RegTech player in these markets is currently positioned to capture it at scale.</h2>
 <p>This is the market Prembly is building for. The question this plan answers is how.</p>
 </div>
 </div></div>
@@ -1602,7 +1690,7 @@
 <h2 class="section-title">Competitive Positioning</h2>
 <h3 class="sub-title">Where Prembly Sits and How We Stay Ahead</h3>
 </div>
-<p class="lead">Prembly's most dangerous competitors are not the single market verification vendors. They are the well funded pan African players and the global RegTech platforms who will eventually look at a $465 to 745M annual compliance technology market across these five economies and decide to compete.</p>
+<p class="lead">Prembly's most dangerous competitors are not the single market verification vendors. They are the well funded pan African players and the global RegTech platforms who will eventually look at an $850 to 950M identity and compliance technology market across these five economies and decide to compete.</p>
 <div class="sector-cols" style="margin-bottom:40px;">
 <div>
 <div class="col-label">Current Competitive Landscape</div>
@@ -1679,10 +1767,72 @@
 <p>Commission a 60-day internal project to produce sector-specific sales collateral, case study templates, and product packaging for Banking, ICT, Consumer Goods, and Oil and Gas. This means four distinct pitch decks, four sets of one-page product briefs, and four documented pricing proposals — all using the same underlying Prembly products, reframed in the language of each sector's compliance and risk teams. The product does not change. The conversation around it does.</p>
 </div>
 </div></div>
+<div class="section slide"><div class="section-content">
+<div class="section-header">
+<span class="section-number">14</span>
+<h2 class="section-title">Sources</h2>
+<h3 class="sub-title">Every External Figure in This Document</h3>
+</div>
+<table class="priority-table source-table">
+<thead>
+<tr>
+<th>Figure</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nigeria fraud losses: ₦25.85bn in 2025, down 51% from ₦52.26bn in 2024 (of which ₦31.1bn was a single incident); ₦17.67bn in 2023; case volumes down five years running</td>
+<td>NIBSS annual fraud landscape reporting, 2025 and 2024</td>
+</tr>
+<tr>
+<td>Bank fraud losses ₦3.3bn in Q1 2025 vs ₦468m in Q1 2024 (+603%); cases down 33.8% quarter on quarter; card fraud up 306.2%</td>
+<td>FITC Reports on Fraud and Forgeries in Nigerian Banks, Q1 2025</td>
+</tr>
+<tr>
+<td>CBN Baseline Standards for Automated AML Solutions: issued 10 March 2026 under BOFIA 2020 s.66(2); 12 standards, 100 requirements; 18 months for deposit money banks, 24 for other institutions; roadmaps due 10 June 2026; sanctions to licence revocation</td>
+<td>CBN circular CMD/DIR/PUB/CIR/001006</td>
+</tr>
+<tr>
+<td>Nigeria and South Africa removed from the FATF grey list, October 2025, after 19-point and 22-point action plans</td>
+<td>FATF October 2025 Plenary outcomes</td>
+</tr>
+<tr>
+<td>Tier-1 Nigerian banks processed ₦286.19tn in mobile transactions in 2025: Zenith ₦104.14tn, GTCO ₦72.4tn, UBA ₦51.65tn</td>
+<td>Bank FY2025 disclosures, as reported</td>
+</tr>
+<tr>
+<td>Access, GTCO and UBA: ₦10.29bn linked to fraud in 2024, 20.66% became actual losses of ₦2.13bn, ~₦8.16bn intercepted. Four banks blocked ₦14.5bn in 2025. GTCO technology spend ₦88bn in 2024; Access Holdings ₦193.5bn</td>
+<td>Bank FY2024 and FY2025 annual reports, as reported</td>
+</tr>
+<tr>
+<td>Identity verification, Middle East &amp; Africa: $1.17bn 2025 to $2.38bn 2030, 15.2% CAGR. South Africa digital identity solutions: $393.3M 2025 to $1,098.8M 2030, 18.7% CAGR</td>
+<td>MarketsandMarkets</td>
+</tr>
+<tr>
+<td>RegTech, Middle East &amp; Africa: $1.02bn 2025 to $2.76bn 2032, 15.28% CAGR; UAE 21% of regional market; BFSI 62% of end users</td>
+<td>MarknTel Advisors</td>
+</tr>
+<tr>
+<td>Nigeria digital identity and eKYC platforms ~$230M; Egypt identity verification $130M (2024), 8.6% CAGR</td>
+<td>Ken Research; 6Wresearch</td>
+</tr>
+<tr>
+<td>One in ten medical products in low and middle income countries is substandard or falsified</td>
+<td>World Health Organization</td>
+</tr>
+<tr>
+<td>South Africa financial crime compliance costs $3.3bn (2020); EMEA total $85bn (2023)</td>
+<td>LexisNexis Risk Solutions, True Cost of Financial Crime Compliance</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size:1.45vh;">Figures marked <span class="estimate-tag">Prembly estimate</span> in this deck are internal allocations, not published data. Kenya and Ghana market sizes are estimated by analogy; no country level sizing was found for either. Market research categories differ by house and are not additive.</p>
+</div></div>
 <div class="closing-block slide"><div class="closing-content">
 <span class="block-label" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#6b6b6b;display:block;margin-bottom:12px;">Strategic Conclusion</span>
 <h2>The infrastructure play is available. The timing will not hold indefinitely.</h2>
-<p style="margin-bottom:16px;">The CBN's March 2026 mandate, FATF exit conditions, the 603% surge in Q1 2025 banking fraud losses, and the documented acceleration of enterprise fraud across every major sector have converged to create the most significant compliance technology opportunity these markets have seen. The same convergence is underway in Kenya, Ghana, South Africa, and Egypt, on a similar clock. That window does not stay open indefinitely.</p>
+<p style="margin-bottom:16px;">The CBN's March 2026 standards put a dated obligation on every regulated institution in our anchor market, with deposit money banks due to comply by September 2027. The FATF exits of October 2025 raised the bar rather than lowering it. And fraud, while falling in total value, is concentrating into fewer and far larger attacks that volume-based screening does not catch. Those three facts, not a fraud panic, are what make this the moment.</p>
 <p style="margin-bottom:16px;">Prembly already has the product. We have FraudBank. We have FraudLens. We have identity verification, KYB, AML, background checks, and continuous monitoring  :  all in one platform. What we are deciding today is whether we take what we have built and position it as category defining infrastructure for emerging markets, or whether we continue operating as a capable but replaceable verification vendor in a single market that is about to consolidate.</p>
 <p>The five board approvals above are not aspirational items. They are the minimum actions required to activate a plan that is already resourced at the product level. Nigeria is where we prove it. The emerging market opportunity is what the proof is worth. The organisations that define trust infrastructure across these economies in 2028 will be the ones that moved with intention in 2026. This is that moment.</p>
 </div></div>
